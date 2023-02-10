@@ -222,7 +222,7 @@ void delete_begin()
         {
                 ptr=start;
                 start=start->next ;
-                printf("\nThe deleted element is :%d\t",ptr->info);
+                printf("\nThe unshifted element is :%d\t",ptr->info);
                 free(ptr);
         }
 }
