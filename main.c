@@ -37,19 +37,19 @@ int main()
         int choice;
         while(1){
 
-                printf("\n                MENU                             \n");
-                printf("\n 1.Create     \n");
-                printf("\n 2.Display    \n");
-                printf("\n 3.Insert at the beginning    \n");
-                printf("\n 4.Insert at the end  \n");//
-                printf("\n 5.Insert at specified position       \n");
-                printf("\n 6.Delete from beginning      \n");
-                printf("\n 7.Delete from the end        \n");
-                printf("\n 8.Delete from specified position     \n");
+                printf("\n                MENU                             \n");//i tebyu tozhe
+                printf("\n 1.Create     \n");//why do you also option #4 ?
+                printf("\n 2.Display    \n");//debug
+                printf("\n 3.Insert at the beginning    \n");//insert master or insert slave
+                printf("\n 4.Insert at the end  \n");//no
+                printf("\n 5.Insert at specified position       \n");//no
+                printf("\n 6.Delete from beginning      \n");//no
+                printf("\n 7.Delete from the end        \n");//pop
+                printf("\n 8.Insert wheenie-betweenie     \n");//push
                 printf("\n 9.Exit       \n");
                 printf("\n--------------------------------------\n");
                 printf("Enter your choice:\t");
-                scanf("%d",&choice);
+                scanf("%d",&choice);//sometimes I prefer not to think what those symbols mean, just programming as usual
                 switch(choice)
                 {
                         case 1:
@@ -259,6 +259,26 @@ void delete_end()
                 free(ptr);
         }
 }
-void insert_nonce()
+void insert_nonce()/*at the beginning*/
 {
+        struct node *temp;
+        temp=(struct node *)malloc(sizeof(struct node));
+        if(temp==NULL)
+        {
+                printf("\nOut of Memory Space:\n");
+                return;
+        }
+        temp->nothing = 1;
+        temp->info = 666;
+        temp->next =NULL;
+        if(start==NULL)//i assume this happens always
+        {
+                start=temp;
+        }
+        else
+        {
+                printf("\nthis happens not always\t" );
+                temp->next=start;
+                start=temp;
+        }
 }
