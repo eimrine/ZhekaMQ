@@ -19,6 +19,11 @@ struct node
         int deletable; //can not just assign true LOL i will do a proper bitpacking later
         int master; //TODO: implement a LMSL
         int slave;
+        int nothing;
+        /*
+        my intuition tells me that there is a need to have some spacers between elements with data.
+        i can not name why do i think so, but since i believe my intuition i implement this anyway
+        */
 };
 struct item //not working yet
 {
@@ -26,7 +31,7 @@ struct item //not working yet
         char symbol;
 };
 
-struct node *start=NULL; //TODO: implement a not-deletable item of list
+struct node *start=NULL; //TODO: implement a non-deletable item of list
 int main()
 {
         int choice;
@@ -36,7 +41,7 @@ int main()
                 printf("\n 1.Create     \n");
                 printf("\n 2.Display    \n");
                 printf("\n 3.Insert at the beginning    \n");
-                printf("\n 4.Insert at the end  \n");
+                printf("\n 4.Insert at the end  \n");//
                 printf("\n 5.Insert at specified position       \n");
                 printf("\n 6.Delete from beginning      \n");
                 printf("\n 7.Delete from the end        \n");
