@@ -9,7 +9,7 @@ void insert_end();
 void insert_pos();
 void delete_begin();
 void delete_end();
-//void delete_pos();
+void insert_nonce();
 
 
 struct node
@@ -74,7 +74,7 @@ int main()
                                         delete_end();
                                         break;
                         case 8:
-                                        //delete_pos();
+                                        insert_nonce();
                                         break;
 
                         case 9:
@@ -259,4 +259,6 @@ void delete_end()
                 free(ptr);
         }
 }
-
+void insert_nonce()
+{
+}
