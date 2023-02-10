@@ -234,7 +234,7 @@ void delete_end()
                 printf("\nList is Empty:");
                 exit(0);
         }
-        else if(start->next ==NULL)
+        else if(start->next ==NULL) //the last item scenario, can i do this undeletable w/o additional flags?
         {
                 ptr=start;
                 start=NULL;
@@ -244,13 +244,13 @@ void delete_end()
         else
         {
                 ptr=start;
-                while(ptr->next!=NULL)
+                while(ptr->next!=NULL)//why while?
                 {
                         temp=ptr;
                         ptr=ptr->next;
                 }
                 temp->next=NULL;
-                printf("\nThe deleted element is:%d\t",ptr->info);
+                printf("\nThe popped element is:%d\t",ptr->info);
                 free(ptr);
         }
 }
