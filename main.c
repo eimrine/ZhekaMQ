@@ -16,9 +16,9 @@ struct node
 {
         int info; //TODO: implement a pointer to some container
         struct node *next;
-        int deletable = 1; //can not just assign true LOL i will do a proper bitpacking later
-        int master = 1; //TODO: implement a LMSL
-        int slave = 0;
+        int deletable; //can not just assign true LOL i will do a proper bitpacking later
+        int master; //TODO: implement a LMSL
+        int slave;
 };
 struct item //not working yet
 {
