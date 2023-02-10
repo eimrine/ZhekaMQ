@@ -278,6 +278,7 @@ void insert_nonce()/*at the beginning*/
         else
         {
                 printf("\nthis happens not always\t" );
+                printf("%d\t",start->info);
                 temp->next=start;
                 start=temp;
         }
