@@ -9,7 +9,7 @@ void insert_end();
 void insert_pos();
 void delete_begin();
 void delete_end();
-void delete_pos();
+//void delete_pos();
 
 
 struct node
