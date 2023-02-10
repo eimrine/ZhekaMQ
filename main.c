@@ -229,7 +229,7 @@ void delete_begin()
 void delete_end()
 {
         struct node *temp,*ptr;
-        if(start==NULL)
+        if(start==NULL) //TODO:if the item is last, pop the NULL value
         {
                 printf("\nList is Empty:");
                 exit(0);
