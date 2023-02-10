@@ -14,8 +14,11 @@ void delete_pos();
 
 struct node
 {
-        int info;
+        int info; //TODO: implement a pointer to some container
         struct node *next;
+        int deletable = 1; //can not just assign true LOL i will do a proper bitpacking later
+        int master = 1; //TODO: implement a LMSL
+        int slave = 0;
 };
 struct item //not working yet
 {
@@ -23,7 +26,7 @@ struct item //not working yet
         char symbol;
 };
 
-struct node *start=NULL;
+struct node *start=NULL; //TODO: implement a not-deletable item of list
 int main()
 {
         int choice;
