@@ -74,7 +74,7 @@ int main()
                                         delete_end();
                                         break;
                         case 8:
-                                        delete_pos();
+                                        //delete_pos();
                                         break;
 
                         case 9:
