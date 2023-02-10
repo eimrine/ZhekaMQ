@@ -238,7 +238,7 @@ void delete_end()
         {
                 ptr=start;
                 start=NULL;
-                printf("\nThe deleted element is:%d\t",ptr->info);
+                printf("\nThe popped element is:%d\t",ptr->info);
                 free(ptr);
         }
         else
