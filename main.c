@@ -83,7 +83,7 @@ int main()
         }
         return 0;
 }
-void create()
+void create()//create undeletable queue
 {
         struct node *temp,*ptr;
         temp=(struct node *)malloc(sizeof(struct node));
@@ -102,7 +102,7 @@ void create()
         else
         {
                 ptr=start;
-                while(ptr->next!=NULL)
+                while(ptr->next!=NULL)//while because this is insert_end which is a forbidden function in ZhekaMQ
                 {
                         ptr=ptr->next;
                 }
@@ -121,7 +121,7 @@ void display()
         {
                 ptr=start;
                 printf("\nThe List elements are:\n");
-                while(ptr!=NULL)
+                while(ptr!=NULL)//C one love
                 {
                         printf("%d\t",ptr->info );
                         ptr=ptr->next ;
