@@ -10,6 +10,7 @@ void insert_pos();
 void delete_begin();
 void delete_end();
 void insert_nonce();
+void insert_nonce2();
 void pop();
 
 struct node
@@ -69,7 +70,7 @@ int main()
                                         pop();
                                         break;
                         case 8:
-                                        insert_nonce();
+                                        insert_nonce2();
                                         break;
 
                         case 9:
@@ -204,3 +205,29 @@ void insert_nonce()/*at the beginning*/
         }
 }
 
+void insert_nonce2()//push 666
+{
+        struct node *temp;
+        temp=(struct node *)malloc(sizeof(struct node));
+        if(temp==NULL)
+        {
+                printf("\nOut of Memory Space:\n");
+                return;
+        }
+        //printf("\nEnter the data value for the node:\t" );
+        //scanf("%d",&temp->info);
+        temp->info = 666;
+        temp->nothing = '%';//usual element is _ and between element is '%'
+        temp->next =NULL;//because this is the new beginning but undeletable yet to be implemented
+        if(start==NULL)
+        {
+                printf("\n start == null\t" );
+                start=temp;
+        }
+        else
+        {
+                printf("\n start != null\t" );
+                temp->next=start;
+                start=temp;
+        }
+}
