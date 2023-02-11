@@ -19,7 +19,7 @@ struct node
         int deletable; //can not just assign true LOL i will do a proper bitpacking later
         int master; //TODO: implement a LMSL
         int slave;
-        int nothing;
+        char nothing;
         /*
         my intuition tells me that there is a need to have some spacers between elements with data.
         i can not name why do i think so, but since i believe my intuition i implement this anyway
@@ -38,7 +38,7 @@ int main()
         while(1){
 
                 printf("\n                MENU                             \n");//i tebyu tozhe
-                printf("\n 1.Create     \n");//why do you also option #4 ?
+                printf("\n 1.Create and insert at the end    \n");//why do you also option #4 ?
                 printf("\n 2.Display    \n");//debug
                 printf("\n 3.Insert at the beginning    \n");//insert master or insert slave
                 printf("\n 4.Insert at the end  \n");//no
@@ -144,6 +144,7 @@ void insert_begin()
         }
         printf("\nEnter the data value for the node:\t" );
         scanf("%d",&temp->info);
+        temp->nothing = '_';//usual element is _ and between element is '%'
         temp->next =NULL;
         if(start==NULL)
         {
@@ -268,8 +269,8 @@ void insert_nonce()/*at the beginning*/
                 printf("\nOut of Memory Space:\n");
                 return;
         }
-        temp->nothing = 1;
-        temp->info = 666;
+        temp->nothing = '%';//usual element is _ and between element is '%'
+        temp->info = 666;//i want between element to have noticeable usual value
         temp->next =NULL;
         if(start==NULL)//i assume this happens always
         {
