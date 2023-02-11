@@ -12,6 +12,8 @@ void delete_end();
 void insert_nonce();
 void insert_nonce2();
 void pop();
+void master_push();
+void slave_push();
 
 struct node
 {
@@ -63,10 +65,12 @@ int main()
                                         insert_begin();
                                         break;
                         case 4:
-                                        printf("\n Master isn't implemented \n");
+
+                                        master_push();
                                         break;
                         case 5:
                                         printf("\n Slave isn't implemented \n");
+                                        slave_push();
                                         break;
                         case 6:
                                         printf("\n Undestroyable pop isn't implemented \n");
@@ -237,3 +241,8 @@ void insert_nonce2()//push 666
                 start=temp;
         }
 }
+void master_push()
+{
+        printf("\n Master isn't implemented \n");
+}
+void slave_push(){}
