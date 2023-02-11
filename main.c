@@ -240,7 +240,9 @@ void slave_push()
         printf("\nEnter what to push, quickly!:\t" );
         scanf("%d",&temp->info);
         temp->nothing = '_';//usual element is _ and between element is '%'
+        temp->slave = 1;
         temp->next =NULL;
+        temp->next_master = NULL;//sorry
         if(start==NULL)
         {
                 start=temp;
