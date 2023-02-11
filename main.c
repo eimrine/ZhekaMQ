@@ -9,7 +9,7 @@ void insert_end();
 void insert_pos();
 void delete_begin();
 void delete_end();
-void insert_nonce();
+void insert_nonce_master();
 void insert_nonce2();
 void pop();
 void master_push();
@@ -28,6 +28,7 @@ struct node
         my intuition tells me that there is a need to have some spacers between elements with data.
         i can not name why do i think so, but since i believe my intuition i implement this anyway
         */
+        struct node *next_master;
 };
 struct item //not working yet
 {
@@ -192,29 +193,8 @@ void pop()
                 free(ptr);
         }
 }
-void insert_nonce()/*at the beginning*/
+void insert_nonce_master()
 {
-        struct node *temp;
-        temp=(struct node *)malloc(sizeof(struct node));
-        if(temp==NULL)
-        {
-                printf("\nOut of Memory Space:\n");
-                return;
-        }
-        temp->nothing = '%';//usual element is _ and between element is '%'
-        temp->info = 666;//i want between element to have noticeable usual value
-        temp->next =NULL;
-        if(start==NULL)//i assume this happens always
-        {
-                start=temp;
-        }
-        else
-        {
-                printf("\nthis happens not always\t" );
-                printf("%d\t",start->info);
-                temp->next=start;
-                start=temp;
-        }
 }
 
 void insert_nonce2()//push 666
