@@ -41,8 +41,10 @@ int main()
                 printf("\n                MENU                             \n");
                 printf("\n 1.Create and do not try this option again!    \n");
                 printf("\n 2.Display    \n");
-                printf("\n 3.Push wheenie-betweenie and push normal value    \n");//insert master or insert slave
-                printf("\n 4.Pop            \n");
+                printf("\n 3.autoPush wheenie-betweenie and push normal value    \n");//insert master or insert slave
+                printf("\n 4.Push Master (not implemented)            \n");
+                printf("\n 5.Push Slave (not implemented)            \n");
+                printf("\n 6.Pop            \n");
                 printf("\n 7.Pop which can destroy the q    \n");
 
                 printf("\n 9.Exit       \n");
@@ -61,11 +63,14 @@ int main()
                                         insert_begin();
                                         break;
                         case 4:
-
+                                        printf("\n Master isn't implemented \n");
+                                        break;
                         case 5:
-
+                                        printf("\n Slave isn't implemented \n");
+                                        break;
                         case 6:
-
+                                        printf("\n Undestroyable pop isn't implemented \n");
+                                        break;
                         case 7:
                                         pop();
                                         break;
