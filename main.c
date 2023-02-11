@@ -41,9 +41,7 @@ int main()
                 printf("\n 1.Create and insert at the end    \n");//why do you also option #4 ?
                 printf("\n 2.Display    \n");//debug
                 printf("\n 3.Insert at the beginning    \n");//insert master or insert slave
-                printf("\n 4.Insert at the end  \n");//no
-                printf("\n 5.Insert at specified position       \n");//no
-                printf("\n 6.Delete from beginning      \n");//no
+
                 printf("\n 7.Delete from the end        \n");//pop
                 printf("\n 8.Insert wheenie-betweenie     \n");//push
                 printf("\n 9.Exit       \n");
@@ -62,13 +60,10 @@ int main()
                                         insert_begin();
                                         break;
                         case 4:
-                                        insert_end();
-                                        break;
+
                         case 5:
-                                        insert_pos();
-                                        break;
+
                         case 6:
-                                        delete_begin();
                                         break;
                         case 7:
                                         delete_end();
@@ -154,82 +149,6 @@ void insert_begin()
         {
                 temp->next=start;
                 start=temp;
-        }
-}
-void insert_end()
-{
-        struct node *temp,*ptr;
-        temp=(struct node *)malloc(sizeof(struct node));
-        if(temp==NULL)
-        {
-                printf("\nOut of Memory Space:\n");
-                return;
-        }
-        printf("\nEnter the data value for the node:\t" );
-        scanf("%d",&temp->info );
-        temp->next =NULL;
-        if(start==NULL)
-        {
-                start=temp;
-        }
-        else
-        {
-                ptr=start;
-                while(ptr->next !=NULL)
-                {
-                        ptr=ptr->next ;
-                }
-                ptr->next =temp;
-        }
-}
-void insert_pos()
-{
-        struct node *ptr,*temp;
-        int i,pos;
-        temp=(struct node *)malloc(sizeof(struct node));
-        if(temp==NULL)
-        {
-                printf("\nOut of Memory Space:\n");
-                return;
-        }
-        printf("\nEnter the position for the new node to be inserted:\t");
-        scanf("%d",&pos);
-        printf("\nEnter the data value of the node:\t");
-        scanf("%d",&temp->info) ;
-
-        temp->next=NULL;
-        if(pos==0)
-        {
-                temp->next=start;
-                start=temp;
-        }
-        else
-        {
-                for(i=0,ptr=start;i<pos-1;i++) { ptr=ptr->next;
-                        if(ptr==NULL)
-                        {
-                                printf("\nPosition not found:[Handle with care]\n");
-                                return;
-                        }
-                }
-                temp->next =ptr->next ;
-                ptr->next=temp;
-        }
-}
-void delete_begin()
-{
-        struct node *ptr;
-        if(ptr==NULL)
-        {
-                printf("\nList is Empty:\n");
-                return;
-        }
-        else
-        {
-                ptr=start;
-                start=start->next ;
-                printf("\nThe unshifted element is :%d\t",ptr->info);
-                free(ptr);
         }
 }
 void delete_end()
