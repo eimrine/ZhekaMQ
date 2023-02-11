@@ -38,13 +38,13 @@ int main()
         int choice;
         while(1){
 
-                printf("\n                MENU                             \n");//i tebyu tozhe
-                printf("\n 1.Create and insert at the end    \n");//why do you also option #4 ?
-                printf("\n 2.Display    \n");//debug
-                printf("\n 3.Push    \n");//insert master or insert slave
+                printf("\n                MENU                             \n");
+                printf("\n 1.Create and do not try this option again!    \n");
+                printf("\n 2.Display    \n");
+                printf("\n 3.Push wheenie-betweenie and push normal value    \n");//insert master or insert slave
                 printf("\n 4.Pop            \n");
-                printf("\n 7.Delete from the end        \n");//pop which can destroy the q
-                printf("\n 8.Insert wheenie-betweenie     \n");//push
+                printf("\n 7.Pop which can destroy the q    \n");
+
                 printf("\n 9.Exit       \n");
                 printf("\n--------------------------------------\n");
                 printf("Enter your choice:\t");
@@ -131,6 +131,7 @@ void display()
 }
 void insert_begin()
 {
+        insert_nonce2();
         struct node *temp;
         temp=(struct node *)malloc(sizeof(struct node));
         if(temp==NULL)
