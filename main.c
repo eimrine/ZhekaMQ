@@ -18,8 +18,8 @@ struct node
         struct node *next;
         int deletable; //can not just assign true LOL i will do a proper bitpacking later
         int master; //TODO: implement a LMSL
-        int slave;
-        char nothing;
+        int slave; //TODO: flood the slave queue of ZhekaMQ here and the master queue still works!
+        char nothing;// _ or %
         /*
         my intuition tells me that there is a need to have some spacers between elements with data.
         i can not name why do i think so, but since i believe my intuition i implement this anyway
