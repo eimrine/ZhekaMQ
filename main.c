@@ -14,6 +14,7 @@ void insert_nonce2();
 void pop();
 void master_push();
 void slave_push();
+void poppoppop();
 
 struct node
 {
@@ -45,7 +46,7 @@ int main()
                 printf("\n 2.Display    \n");
                 printf("\n 3.autoPush wheenie-betweenie and push normal value    \n");//insert master or insert slave
                 printf("\n 4.Push Master (not implemented)            \n");
-                printf("\n 5.Push Slave (not implemented)            \n");
+                printf("\n 5.Push Slave            \n");
                 printf("\n 6.Pop            \n");
                 printf("\n 7.Pop which can destroy the q    \n");
 
@@ -69,11 +70,12 @@ int main()
                                         master_push();
                                         break;
                         case 5:
-                                        printf("\n Slave isn't implemented \n");
+
                                         slave_push();
                                         break;
                         case 6:
                                         printf("\n Undestroyable pop isn't implemented \n");
+                                        poppoppop();
                                         break;
                         case 7:
                                         pop();
@@ -245,4 +247,28 @@ void master_push()
 {
         printf("\n Master isn't implemented \n");
 }
-void slave_push(){}
+void slave_push()
+{
+        insert_nonce2();
+        struct node *temp;
+        temp=(struct node *)malloc(sizeof(struct node));
+        if(temp==NULL)
+        {
+                printf("\nOut of Memory Space:\n");
+                return;
+        }
+        printf("\nEnter what to push, quickly!:\t" );
+        scanf("%d",&temp->info);
+        temp->nothing = '_';//usual element is _ and between element is '%'
+        temp->next =NULL;
+        if(start==NULL)
+        {
+                start=temp;
+        }
+        else
+        {
+                temp->next=start;
+                start=temp;
+        }
+}
+void poppoppop(){}
