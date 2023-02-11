@@ -10,7 +10,7 @@ void insert_pos();
 void delete_begin();
 void delete_end();
 void insert_nonce();
-
+void pop();
 
 struct node
 {
@@ -40,9 +40,9 @@ int main()
                 printf("\n                MENU                             \n");//i tebyu tozhe
                 printf("\n 1.Create and insert at the end    \n");//why do you also option #4 ?
                 printf("\n 2.Display    \n");//debug
-                printf("\n 3.Insert at the beginning    \n");//insert master or insert slave
-
-                printf("\n 7.Delete from the end        \n");//pop
+                printf("\n 3.Push    \n");//insert master or insert slave
+                printf("\n 4.Pop            \n");
+                printf("\n 7.Delete from the end        \n");//pop which can destroy the q
                 printf("\n 8.Insert wheenie-betweenie     \n");//push
                 printf("\n 9.Exit       \n");
                 printf("\n--------------------------------------\n");
@@ -64,9 +64,9 @@ int main()
                         case 5:
 
                         case 6:
-                                        break;
+
                         case 7:
-                                        delete_end();
+                                        pop();
                                         break;
                         case 8:
                                         insert_nonce();
@@ -151,7 +151,7 @@ void insert_begin()
                 start=temp;
         }
 }
-void delete_end()
+void pop()
 {
         struct node *temp,*ptr;
         if(start==NULL) //TODO:if the item is last, pop the NULL value
@@ -203,3 +203,4 @@ void insert_nonce()/*at the beginning*/
                 start=temp;
         }
 }
+
