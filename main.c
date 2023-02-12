@@ -250,6 +250,7 @@ void slave_push()
         }
         else
         {
+                printf("\n i don't believe this will ever run \n");
                 temp->next=start;
                 start=temp;
         }
