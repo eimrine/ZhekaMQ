@@ -39,7 +39,10 @@ struct item //not working yet
         char symbol;
 };
 
-struct node *start=NULL; //TODO: implement a non-deletable item of list
+
+
+struct node *start=NULL; //TODO: rename global variable with caps
+struct node *TAIL = NULL;//TODO: implement a source of information about the last element of the LL.
 int main()
 {
         int choice;
@@ -121,6 +124,7 @@ void create()//create undeletable queue
                 while(ptr->next!=NULL)//while because this is insert_end which is a forbidden function in ZhekaMQ
                 {
                         ptr=ptr->next;
+			//TAIL = ptr;
                 }
                 ptr->next=temp;
         }
@@ -162,6 +166,7 @@ void insert_begin()
         {
 		printf("start was NULL");
                 start=temp;
+		TAIL = temp;
         }
         else
         {
@@ -173,22 +178,25 @@ void insert_begin()
 void pop()
 {
         struct node *temp,*ptr;
+	/*temp is for the element building and ptr is pointer to START*/
         if(start==NULL) //TODO:if the item is last, pop the NULL value
+	/*if global == null than there is no list*/
         {
                 printf("\nList is Empty:");
                 exit(0);
         }
-        else if(start->next ==NULL) //the last item scenario, can i do this undeletable w/o additional flags?
+        else if(start->next ==NULL) //the single item scenario
         {
-                ptr=start;
-                start=NULL;
+                ptr=start;//mem value of global
+                start=NULL;//singular item becomes zero items
                 printf("\nThe elif popped element is:%d\t",ptr->info);
                 free(ptr);
         }
         else
         {
-                ptr=start;
+                ptr=start;//mem value of global
                 while(ptr->next!=NULL)//why while?
+		/*i need a tail element for not looping at the end*/
                 {
 			printf("inside while");
                         temp=ptr;
