@@ -14,6 +14,7 @@ void insert_nonce2();
 void pop();
 void master_push();
 void slave_push();
+void slave_pack_push();
 void poppoppop();
 //struct node next_master(remember_this_pointer);
 
@@ -255,6 +256,7 @@ void slave_push()
                 start=temp;
         }
 }
+void slave_pack_push(){}
 void poppoppop(){}
 /*
 struct node next_master(struct node *remember_this_pointer){
