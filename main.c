@@ -16,7 +16,7 @@ void master_push();
 void slave_push();
 void slave_pack_push();
 void poppoppop();
-struct node *next_master(remember_this_pointer);
+struct node *next_master();
 
 struct node
 {
