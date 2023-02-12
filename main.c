@@ -263,4 +263,3 @@ struct node next_master(struct node *remember_this_pointer){
         return temp;
 }
 */
-}
