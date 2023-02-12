@@ -159,10 +159,12 @@ void insert_begin()
         temp->next =NULL;
         if(start==NULL)
         {
+		printf("start was NULL");
                 start=temp;
         }
         else
         {
+		printf("start wasn't NULL");
                 temp->next=start;
                 start=temp;
         }
@@ -179,7 +181,7 @@ void pop()
         {
                 ptr=start;
                 start=NULL;
-                printf("\nThe popped element is:%d\t",ptr->info);
+                printf("\nThe elif popped element is:%d\t",ptr->info);
                 free(ptr);
         }
         else
@@ -187,11 +189,12 @@ void pop()
                 ptr=start;
                 while(ptr->next!=NULL)//why while?
                 {
+			printf("inside while");
                         temp=ptr;
                         ptr=ptr->next;
                 }
                 temp->next=NULL;
-                printf("\nThe popped element is:%d\t",ptr->info);
+                printf("\nThe else popped element is:%d\t",ptr->info);
                 free(ptr);
         }
 }
