@@ -15,6 +15,7 @@ void pop();
 void master_push();
 void slave_push();
 void poppoppop();
+//struct node next_master(remember_this_pointer);
 
 struct node
 {
@@ -254,3 +255,11 @@ void slave_push()
         }
 }
 void poppoppop(){}
+/*
+struct node next_master(struct node *remember_this_pointer){
+        struct node *temp;
+        temp->next_master = remember_this_pointer->next_master;
+        return temp;
+}
+*/
+}
