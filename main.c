@@ -213,7 +213,7 @@ void pop()
                         printf("poiner temp %p",temp);
                         printf("pointer from ts %p",tail_supplier());
                 }
-                printf("\nend of print madness\n");
+                printf("\nend of print madness. The tail was popped is%p\n",ptr);
                 temp->next=NULL;
                 printf("\nThe else popped element is:%d\t",ptr->info);
                 free(ptr);
@@ -295,13 +295,14 @@ struct node *tail_supplier()
 	printf("please do not use this w/o list it causes segfault");
 	int how_many = 0;
 	temp1 = start;
-        while(temp1->next!=NULL)//why while?
+        while(temp1->next!=NULL)//no more loops, this is the ultimate loop.
 
         {
-                printf("inside while");
+                printf("temp1 inside while%p\n",temp1);
                 how_many++;
                 temp1=temp1->next;
         }
+        printf("\nlast pointer was TAIL, number of items was%d",how_many);
 	return temp1;
 }
 
