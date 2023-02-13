@@ -203,6 +203,16 @@ void pop()
                         temp=ptr;
                         ptr=ptr->next;
                 }
+                if (temp == tail_supplier())
+                {
+                        printf("OMG");
+                }
+                else
+                {
+                        printf("poiner temp %p",temp);
+                        printf("pointer from ts %p",tail_supplier());
+                }
+
                 temp->next=NULL;
                 printf("\nThe else popped element is:%d\t",ptr->info);
                 free(ptr);
@@ -271,14 +281,16 @@ void slave_push()
 }
 void slave_pack_push(){}
 void poppoppop(){}
+/*
 struct node *next_master(struct node *remember_this_pointer){
         struct node *temp;
         temp->next_master = remember_this_pointer->next_master;
         return temp;
 }
+*/
 struct node *tail_supplier()
 {
-	struct node * temp1, temp2;
+	struct node * temp1;
 	printf("please do not use this w/o list it causes segfault");
 	int how_many = 0;
 	temp1 = start;
