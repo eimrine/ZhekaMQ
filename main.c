@@ -203,6 +203,7 @@ void pop()
                         temp=ptr;
                         ptr=ptr->next;
                 }
+                printf("\nstart print madness\n");
                 if (temp == tail_supplier())
                 {
                         printf("OMG");
@@ -212,7 +213,7 @@ void pop()
                         printf("poiner temp %p",temp);
                         printf("pointer from ts %p",tail_supplier());
                 }
-
+                printf("\nend of print madness\n");
                 temp->next=NULL;
                 printf("\nThe else popped element is:%d\t",ptr->info);
                 free(ptr);
