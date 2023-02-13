@@ -303,6 +303,7 @@ struct node *tail_supplier()
                 temp1=temp1->next;
         }
         printf("\nlast pointer was TAIL, number of items was%d",how_many);
+        printf("the meaning of TAIL is: %d\n",temp1->info );
 	return temp1;
 }
 
