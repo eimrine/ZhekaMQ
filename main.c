@@ -50,16 +50,16 @@ int main()
         while(1){
 
                 printf("\n                MENU                             \n");
-                printf("\n 1.Create and do not try this option again!    \n");
-                printf("\n 2.Display    \n");
-                printf("\n 3.autoPush wheenie-betweenie and push normal value    \n");//insert master or insert slave
-                printf("\n 4.Push Master (not implemented)            \n");
-                printf("\n 5.Push Slave            \n");
-                printf("\n 6.Pop            \n");
-                printf("\n 7.Pop which can destroy the q    \n");
+                printf("n 1.Create and do not try this option again!    \n");
+                printf("n 2.Display    \n");
+                printf("n 3.autoPush wheenie-betweenie and push normal value    \n");//insert master or insert slave
+                printf("n 4.Push Master (not implemented)            \n");
+                printf("n 5.Push Slave            \n");
+                printf("n 6.Pop            \n");
+                printf("n 7.Pop which can destroy the q    \n");
 
-                printf("\n 9.Exit       \n");
-                printf("\n--------------------------------------\n");
+                printf("n 9.Exit       \n");
+                printf("n--------------------------------------\n");
                 printf("Enter your choice:\t");
                 scanf("%d",&choice);//sometimes I prefer not to think what those symbols mean, just programming as usual
                 switch(choice)
@@ -199,19 +199,21 @@ void pop()
                 while(ptr->next!=NULL)//why while?
 		/*i need a tail element for not looping at the end*/
                 {
-			printf("inside while");
+			printf("\ninside while");
                         temp=ptr;
                         ptr=ptr->next;
                 }
-                printf("\nstart print madness\n");
+                printf("\n1start print madness\n");
+                printf("\n2poiner temp %p",temp);
+                printf("\n3pointer from ts %p",tail_supplier());
                 if (temp == tail_supplier())
                 {
-                        printf("OMG");
+                        printf("\nOMG\n");
                 }
                 else
                 {
-                        printf("poiner temp %p",temp);
-                        printf("pointer from ts %p",tail_supplier());
+                        printf("\npoiner temp %p",temp);
+                        printf("\npointer from ts %p",tail_supplier());
                 }
                 printf("\nend of print madness. The tail was popped is%p\n",ptr);
                 temp->next=NULL;
