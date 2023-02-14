@@ -21,6 +21,7 @@ void ptrcmp();
 
 struct node *next_master();
 struct node *tail_supplier();
+struct node *pre_tail_supplier();
 
 struct node
 {
@@ -46,13 +47,14 @@ struct item //not working yet
 
 struct node *start=NULL; //TODO: rename global variable with caps
 struct node *TAIL = NULL;//TODO: implement a source of information about the last element of the LL.
+struct node *PRETAIL = NULL;// pop operation needs an access to second-last element
 int main()
 {
         int choice;
         while(1){
 
                 printf("\n                MENU                             \n");
-                printf("n 1.Create and do not try this option again!    \n");
+                printf("n 1.Create and do not try this option again! PRETAIL is not implemented here!!!   \n");
                 printf("n 2.Display    \n");
                 printf("n 3.autoPush wheenie-betweenie and push normal value    \n");//insert master or insert slave
                 printf("n 4.Push Master (not implemented)            \n");
@@ -85,7 +87,7 @@ int main()
                                         break;
                         case 6:
                                         printf("\n Undestroyable pop isn't implemented \n");
-                                        tail_supplier();
+                                        pre_tail_supplier();
                                         break;
                         case 7:
                                         pop();
@@ -169,7 +171,8 @@ void insert_begin()
         {
 		printf("start was NULL");
                 start=temp;
-		TAIL = temp;
+		TAIL = temp;//dear Lord, please make my code not facing race condition in this place. amen.
+		PRETAIL = NULL;
         }
         else
         {
@@ -185,7 +188,7 @@ void pop()
         if(start==NULL) //TODO:if the item is last, pop the NULL value
 	/*if global == null than there is no list*/
         {
-                printf("\nList is Empty:");
+                printf("\nList is Empty and I believe the TAIL == NULL as well");
                 exit(0);
         }
         else if(start->next ==NULL) //the single item scenario
@@ -193,11 +196,13 @@ void pop()
                 ptr=start;//mem value of global
                 start=NULL;//singular item becomes zero items
                 printf("\nThe elif popped element is:%d\t",ptr->info);
+                TAIL = NULL;
                 free(ptr);
         }
         else
         {
                 ptr=start;//mem value of global
+                /*
                 if (ptr == tail_supplier())
                 {
                         printf("\nOMG\n");//yeah!
@@ -208,6 +213,7 @@ void pop()
                         printf("\n???poiner ptr (not temp) %p",ptr);
                         printf("\n???pointer from ts %p",tail_supplier());
                 }
+                */
                 //ptrcmp(ptr, tail_supplier());
                 while(ptr->next!=NULL)//why while?
 		/*i need a tail element for not looping at the end*/
@@ -216,12 +222,12 @@ void pop()
                         temp=ptr;
                         ptr=ptr->next;
                 }
-                printf("\n1start print madness");
-                printf("\n2poiner temp %p",temp);//afterpop
-                printf("\t wh eff means %d",temp->info);//hey, this is an after-pop value!
-                printf("\n3pointer from ts %p",tail_supplier());
-                ptrcmp(temp->next, tail_supplier());
-                if (temp->next == tail_supplier())
+                //printf("\n1start print madness");
+                //printf("\n2poiner temp %p",temp);//afterpop
+                //printf("\t wh eff means %d",temp->info);//hey, this is an after-pop value!
+                //printf("\n3pointer from ts %p",tail_supplier());
+                ptrcmp(temp, pre_tail_supplier());
+                if (temp == pre_tail_supplier())
                 {
                         printf("\nOMG\n");
                 }
@@ -306,6 +312,25 @@ struct node *next_master(struct node *remember_this_pointer){
         return temp;
 }
 */
+struct node *pre_tail_supplier()
+{
+        printf("\nTAILSUPstartiter\n");
+	struct node * temp1;
+	//printf("please do not use this w/o list it causes segfault");
+	int how_many = 0;
+	temp1 = start;
+        while(temp1->next->next!=NULL)//no more loops, this is the ultimate loop.
+
+        {
+                //printf("temp1 inside while%p\n",temp1);
+                how_many++;
+                temp1=temp1->next;
+        }
+        printf("\nlast pointer was TAIL, number of items was%d",++how_many);
+        printf("the meaning of TAIL is: %d\n",temp1->info );
+        printf("\nTAILSUPenditer\n");
+	return temp1;
+}
 struct node *tail_supplier()
 {
         printf("\nTAILSUPstartiter\n");
@@ -313,7 +338,7 @@ struct node *tail_supplier()
 	//printf("please do not use this w/o list it causes segfault");
 	int how_many = 0;
 	temp1 = start;
-        while(temp1->next!=NULL)//no more loops, this is the ultimate loop.
+        while(temp1->next->next!=NULL)//no more loops, this is the ultimate loop.
 
         {
                 //printf("temp1 inside while%p\n",temp1);
