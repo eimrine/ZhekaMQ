@@ -196,15 +196,26 @@ void pop()
         else
         {
                 ptr=start;//mem value of global
+                if (ptr == tail_supplier())
+                {
+                        printf("\nOMG\n");//yeah!
+                }
+                else
+                {
+                        printf("\n???NOOOOOOOOOOOOOOOOOOOOOOOOO!\n");
+                        printf("\n???poiner ptr (not temp) %p",ptr);
+                        printf("\n???pointer from ts %p",tail_supplier());
+                }
                 while(ptr->next!=NULL)//why while?
 		/*i need a tail element for not looping at the end*/
                 {
-			printf("\ninside while");
+			printf("\ninside pop-while");
                         temp=ptr;
                         ptr=ptr->next;
                 }
-                printf("\n1start print madness\n");
+                printf("\n1start print madness");
                 printf("\n2poiner temp %p",temp);
+                printf("\t wh eff means %d",temp->info);//hey, this is an after-pop value!
                 printf("\n3pointer from ts %p",tail_supplier());
                 if (temp == tail_supplier())
                 {
@@ -212,8 +223,8 @@ void pop()
                 }
                 else
                 {
-                        printf("\npoiner temp %p",temp);
-                        printf("\npointer from ts %p",tail_supplier());
+                        printf("\n???poiner temp %p",temp);
+                        printf("\n???pointer from ts %p",tail_supplier());
                 }
                 printf("\nend of print madness. The tail was popped is%p\n",ptr);
                 temp->next=NULL;
