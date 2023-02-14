@@ -183,7 +183,7 @@ void insert_begin()
 }
 void pop()
 {
-        struct node *temp,*ptr,*pre;
+        struct node *temp,*ptr,*pre,*ptrcopy;
 	/*temp is for the element building and ptr is pointer to START*/
         if(start==NULL) //TODO:if the item is last, pop the NULL value
 	/*if global == null than there is no list*/
@@ -193,7 +193,7 @@ void pop()
         }
         else if(start->next ==NULL) //the single item scenario
         {
-                ptr=start;//mem value of global
+                ptr=start;//this needs to be run earlier
                 start=NULL;//singular item becomes zero items
                 printf("\nThe elif popped element is:%d\t",ptr->info);
                 TAIL = NULL;
@@ -201,12 +201,17 @@ void pop()
         }
         else if(start->next->next ==NULL) //the double item scenario
         {
-                printf("\nkilroy was here");
-                ptr=start;//mem value of global
+                printf("\nkilroy was here %p",start->next->info);
+                ptr=start->next;//this needs to be run earlier
+                ptrcopy = ptr;
+                printf("the next ptr is: %p\n",ptr->next );
                 //start=NULL;//double item becomes singular item
                 printf("\nThe doubleif popped element is:%d\t",ptr->info);
+                //start- = NULL;
                 PRETAIL = NULL;
-                free(ptr);
+                start->next = NULL;
+                free(ptrcopy);
+                printf("\nlet's inspect a start element %p with meaning %d having next element %p",start,start->info,start->next);
         }
         else
         {
@@ -321,15 +326,16 @@ struct node *pre_tail_supplier()
 	//printf("please do not use this w/o list it causes segfault");
 	int how_many = 0;
 	temp1 = start;
-        while(temp1->next->next!=NULL && temp1->next != NULL)//only pretail has such a chain
+        while(temp1->next->next!=NULL && temp1->next != NULL && temp1 != NULL)//only pretail has such a chain
         {
-                printf("inside while in pre%p\n",temp1);
+                printf("number %d inside while in pre%p\n",temp1->info,temp1);
                 how_many++;
                 temp1=temp1->next;
         }
+        if (temp1->next == NULL) return NULL;
         printf("\nlast pointer was PRETAIL, number of items was%d",++how_many);
         printf("the meaning of PRETAIL is: %d\n",temp1->info );
-        printf("\nPRETAILSUPenditer\n");
+        printf("\nPRETAIL has a tail as many as%d\n",temp1->next->info);
 	return temp1;
 }
 struct node *tail_supplier()
