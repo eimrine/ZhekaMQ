@@ -54,7 +54,7 @@ int main()
         while(1){
 
                 printf("\n                MENU                             \n");
-                printf("n 1.Create and do not try this option again! PRETAIL is not implemented here!!!   \n");
+                printf("n 1.Create and do not try this option again! PRETAIL is not implemented here!\n");
                 printf("n 2.Display    \n");
                 printf("n 3.autoPush wheenie-betweenie and push normal value    \n");//insert master or insert slave
                 printf("n 4.Push Master (not implemented)            \n");
@@ -183,7 +183,7 @@ void insert_begin()
 }
 void pop()
 {
-        struct node *temp,*ptr;
+        struct node *temp,*ptr,*pre;
 	/*temp is for the element building and ptr is pointer to START*/
         if(start==NULL) //TODO:if the item is last, pop the NULL value
 	/*if global == null than there is no list*/
@@ -199,34 +199,29 @@ void pop()
                 TAIL = NULL;
                 free(ptr);
         }
+        else if(start->next->next ==NULL) //the double item scenario
+        {
+                printf("\nkilroy was here");
+                ptr=start;//mem value of global
+                //start=NULL;//double item becomes singular item
+                printf("\nThe doubleif popped element is:%d\t",ptr->info);
+                PRETAIL = NULL;
+                free(ptr);
+        }
         else
         {
-                ptr=start;//mem value of global
-                /*
-                if (ptr == tail_supplier())
-                {
-                        printf("\nOMG\n");//yeah!
-                }
-                else
-                {
-                        printf("\n???NOOOOOOOOOOOOOOOOOOOOOOOOO!");
-                        printf("\n???poiner ptr (not temp) %p",ptr);
-                        printf("\n???pointer from ts %p",tail_supplier());
-                }
-                */
-                //ptrcmp(ptr, tail_supplier());
-                while(ptr->next!=NULL)//why while?
-		/*i need a tail element for not looping at the end*/
+                ptr=start;//delete this statement
+                pre=pre_tail_supplier(); //if this gonna work i'll call it a day.
+                printf("ive got a pre, %p , its value is %d\t",pre, pre->info);
+                while(ptr->next!=NULL)//this while doesnt do anything real
                 {
 			printf("\ninside pop-while");
                         temp=ptr;
                         ptr=ptr->next;
                 }
-                //printf("\n1start print madness");
-                //printf("\n2poiner temp %p",temp);//afterpop
-                //printf("\t wh eff means %d",temp->info);//hey, this is an after-pop value!
-                //printf("\n3pointer from ts %p",tail_supplier());
-                ptrcmp(temp, pre_tail_supplier());
+
+                //ptrcmp(temp, pre_tail_supplier());
+                         /*
                 if (temp == pre_tail_supplier())
                 {
                         printf("\nOMG\n");
@@ -236,10 +231,17 @@ void pop()
                         printf("\n???poiner temp %p",temp);
                         printf("\n???pointer from ts %p",tail_supplier());
                 }
+                */
                 printf("\nend of print madness. The tail was popped is%p\n",ptr);
-                temp->next=NULL;
+                //temp->next=NULL; //earlier
+                pre_tail_supplier()->next = NULL;
+                //ptrcmp(temp->next,pre->next->next); //find that value
                 printf("\nThe else popped element is:%d\t",ptr->info);
-                free(ptr);
+                printf("new pretail, %p , has a value %d\t",pre_tail_supplier(), pre_tail_supplier()->info);
+                //ptrcmp(pre->next,ptr);//dont work anymore
+                free(pre_tail_supplier()->next->next);
+                //ptrcmp(ptr, pre->next->next);//also find that
+                //free(ptr);
         }
 }
 void insert_nonce_master()
@@ -319,16 +321,15 @@ struct node *pre_tail_supplier()
 	//printf("please do not use this w/o list it causes segfault");
 	int how_many = 0;
 	temp1 = start;
-        while(temp1->next->next!=NULL)//no more loops, this is the ultimate loop.
-
+        while(temp1->next->next!=NULL && temp1->next != NULL)//only pretail has such a chain
         {
-                //printf("temp1 inside while%p\n",temp1);
+                printf("inside while in pre%p\n",temp1);
                 how_many++;
                 temp1=temp1->next;
         }
-        printf("\nlast pointer was TAIL, number of items was%d",++how_many);
-        printf("the meaning of TAIL is: %d\n",temp1->info );
-        printf("\nTAILSUPenditer\n");
+        printf("\nlast pointer was PRETAIL, number of items was%d",++how_many);
+        printf("the meaning of PRETAIL is: %d\n",temp1->info );
+        printf("\nPRETAILSUPenditer\n");
 	return temp1;
 }
 struct node *tail_supplier()
