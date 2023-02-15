@@ -125,19 +125,50 @@ void create()//create START and do not shift no value in it; shift as JS
         printf("\nEnter the data value for the node:\t");
         scanf("%d",&temp->info);
         temp->next=NULL;
-        if(start==NULL)
+        if(start==NULL)//0 becomes 1
         {
-                start=temp;
+                start=temp;//create first
+                CAR = temp;//i do not comment reads but all writes are commented
+                CDR = start;//remember that everything in create() is violating of rules because this is shift() not push()
         }
-        else
-        {
+        else if (start -> next == NULL)//1 turns to 2
+        {//last case copied
                 ptr=start;
+                //ptr = CAR;
                 while(ptr->next!=NULL)//while because this is insert_end which is a forbidden function in ZhekaMQ
                 {
                         ptr=ptr->next;
 			//TAIL = ptr;
                 }
+                CDDR = ptr;
                 ptr->next=temp;
+                CDR = temp;
+        }
+        else if (start -> next -> next == NULL)//moving from 2 to 3 requires another case if not in Lisp
+        {
+                ptr=start;
+                //ptr = CAR;
+                while(ptr->next!=NULL)//while because this is insert_end which is a forbidden function in ZhekaMQ
+                {
+                        ptr=ptr->next;
+			//TAIL = ptr;
+                }
+                CDDR = ptr;
+                ptr->next=temp;
+                CDR = temp;
+        }
+        else
+        {
+                ptr=start;
+                //ptr = CAR;
+                while(ptr->next!=NULL)//while because this is insert_end which is a forbidden function in ZhekaMQ
+                {
+                        ptr=ptr->next;
+			//TAIL = ptr;
+                }
+                CDDR = ptr;
+                ptr->next=temp;
+                CDR = temp;
         }
 }
 void display()
@@ -151,12 +182,15 @@ void display()
         else
         {
                 ptr=start;
+                //ptr = CAR;
                 printf("\nThe List elements are:\n");
+
                 while(ptr!=NULL)//C one love
                 {
                         printf("%d\t",ptr->info );
-                        ptr=ptr->next ;
+                        ptr=ptr->next;
                 }
+                //Lisp another
         }
 }
 void insert_begin()
@@ -177,8 +211,11 @@ void insert_begin()
         {
 		printf("start was NULL");
                 start=temp;
+                CAR = temp;
 		TAIL = temp;//dear Lord, please make my code not facing race condition in this place. amen.
+		CDR = temp;
 		PRETAIL = NULL;
+		CDDR = NULL;
         }
         else
         {
@@ -195,36 +232,46 @@ void pop()
 	/*if global == null than there is no list*/
         {
                 printf("\nList is Empty and I believe the TAIL == NULL as well");
+                CAR = NULL;
+                printf("print car %p\t tail %p\t",CAR,TAIL);
                 exit(0);
         }
         else if(start->next ==NULL) //the single item scenario
         {
                 ptr=start;//this needs to be run earlier
+                //ptr = CAR
                 start=NULL;//singular item becomes zero items
+                CAR = NULL;
                 printf("\nThe elif popped element is:%d\t",ptr->info);
                 TAIL = NULL;
+                CDR = NULL;
                 free(ptr);
         }
         else if(start->next->next ==NULL) //the double item scenario
         {
                 printf("\nkilroy was here %p",start->next->info);
                 ptr=start->next;//this needs to be run earlier
+                //ptr = CAAR;
                 ptrcopy = ptr;
                 printf("the next ptr is: %p\n",ptr->next );
                 //start=NULL;//double item becomes singular item
                 printf("\nThe doubleif popped element is:%d\t",ptr->info);
                 //start- = NULL;
                 PRETAIL = NULL;
+                CDDR = NULL;
                 start->next = NULL;
+                CAAR = NULL;
                 free(ptrcopy);
                 printf("\nlet's inspect a start element %p with meaning %d having next element %p",start,start->info,start->next);
         }
         else
         {
-                ptr=start;//delete this statement
-                pre=pre_tail_supplier(); //if this gonna work i'll call it a day.
+                ptr=start;
+                //ptr = CAR;
+                //pre=pre_tail_supplier();//lisp experimenting starts from here
+                pre = CDDR;
                 printf("ive got a pre, %p , its value is %d\t",pre, pre->info);
-                while(ptr->next!=NULL)//this while doesnt do anything real
+                while(ptr->next!=NULL)//this while lets temp to be show to CDDR
                 {
 			printf("\ninside pop-while");
                         temp=ptr;
@@ -232,25 +279,38 @@ void pop()
                 }
 
                 //ptrcmp(temp, pre_tail_supplier());
-                         /*
-                if (temp == pre_tail_supplier())
+
+                if (temp == CDDR)
                 {
                         printf("\nOMG\n");
                 }
                 else
                 {
                         printf("\n???poiner temp %p",temp);
-                        printf("\n???pointer from ts %p",tail_supplier());
+                        printf("\n???pointer CDDR ts %p",CDDR);//TODO: give some info right here
                 }
-                */
+
                 printf("\nend of print madness. The tail was popped is%p\n",ptr);
                 //temp->next=NULL; //earlier
-                pre_tail_supplier()->next = NULL;
+                pre_tail_supplier()->next = NULL;//second lisp action
+                //CDDR->next = NULL;
                 //ptrcmp(temp->next,pre->next->next); //find that value
                 printf("\nThe else popped element is:%d\t",ptr->info);
                 printf("new pretail, %p , has a value %d\t",pre_tail_supplier(), pre_tail_supplier()->info);
                 //ptrcmp(pre->next,ptr);//dont work anymore
-                free(pre_tail_supplier()->next->next);
+                free(pre_tail_supplier()->next->next);//second lisp action
+                //free(CDDR->next->next);
+                if (!CDR && !CDDR && CDDR->next->info != CDR->info)
+                /*if you will ever check NULL->something you will get segfault!*/
+                {
+                        printf("fatal error! cddr %d\t cdr %d\t ",CDDR->info,CDR->info);
+                }
+                else
+                {
+                        printf("CDR ready");
+                }
+                //free(CDDR->next);
+
                 //ptrcmp(ptr, pre->next->next);//also find that
                 //free(ptr);
         }
@@ -339,9 +399,11 @@ struct node *pre_tail_supplier()
                 temp1=temp1->next;
         }
         if (temp1->next == NULL) return NULL;
+        printf("\nMenwhile in CDDR: %d\n",CDDR->info);
         printf("\nlast pointer was PRETAIL, number of items was%d",++how_many);
         printf("the meaning of PRETAIL is: %d\n",temp1->info );
         printf("\nPRETAIL has a tail as many as%d\n",temp1->next->info);
+        printf("\nMenwhile in CDDR: %d\n",CDDR->info);
 	return temp1;
 }
 struct node *tail_supplier()
