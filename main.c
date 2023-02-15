@@ -27,8 +27,8 @@ struct node
 {
         int info; //TODO: implement a pointer to some container
         struct node *next;
-        int deletable; //can not just assign true LOL i will do a proper bitpacking later
-        int master; //TODO: implement a LMSL
+        int deletable; //can change int to bool if i will cast #include <boolean.h>
+        int master; //TODO: implement an LMSL
         int slave; //TODO: flood the slave queue of ZhekaMQ here and the master queue still works!
         char nothing;// _ or %
         /*
@@ -48,6 +48,12 @@ struct item //not working yet
 struct node *start=NULL; //TODO: rename global variable with caps
 struct node *TAIL = NULL;//TODO: implement a source of information about the last element of the LL.
 struct node *PRETAIL = NULL;// pop operation needs an access to second-last element
+struct node * CAR = NULL; //start
+struct node * CAAR = NULL; //start->next
+struct node * CAAAR = NULL; //start->next->next
+struct node * CDR = NULL; //TAIL
+struct node * CDDR = NULL; //PRETAIL
+
 int main()
 {
         int choice;
@@ -107,7 +113,7 @@ int main()
         }
         return 0;
 }
-void create()//create undeletable queue
+void create()//create START and do not shift no value in it; shift as JS
 {
         struct node *temp,*ptr;
         temp=(struct node *)malloc(sizeof(struct node));
