@@ -27,6 +27,7 @@ struct node
 {
         int info; //TODO: implement a pointer to some container
         struct node *next;
+	struct node *prev;//can not operate with the other side of the list w/o loops
         int deletable; //can change int to bool if i will cast #include <boolean.h>
         int master; //TODO: implement an LMSL
         int slave; //TODO: flood the slave queue of ZhekaMQ here and the master queue still works!
@@ -125,6 +126,7 @@ void create()//create START and do not shift no value in it; shift as JS
         printf("\nEnter the data value for the node:\t");
         scanf("%d",&temp->info);
         temp->next=NULL;
+	temp->prev=NULL;
         if(start==NULL)//0 becomes 1
         {
                 start=temp;//create first
@@ -142,6 +144,7 @@ void create()//create START and do not shift no value in it; shift as JS
                 }
                 CDDR = ptr;
                 ptr->next=temp;
+		ptr->prev=start;
                 CDR = temp;
         }
         else if (start -> next -> next == NULL)//moving from 2 to 3 requires another case if not in Lisp
