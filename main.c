@@ -1,5 +1,6 @@
     #include<stdio.h>  
     #include<stdlib.h>  
+	#include<boolean.h>
     struct node  
     {  
         struct node *prev;  
@@ -7,6 +8,12 @@
         int data;  
     };  
     struct node *head;  
+struct Person {
+        char name;
+        int age;
+    };
+     //struct Person *person = {.name = 'B', .age = 29};
+//why this is not working?
     void insertion_beginning();  
     void insertion_last();  
     void deletion_beginning();  
@@ -14,6 +21,9 @@
     void display();  
     void search();  
     void main ()  
+/*** argc [0] = char; a-alphapush and b-betapush and z - pop
+argc[1] = json (i will use integer before i am able to have json datatype in zhekaMQ
+***/
     {  
     int choice =0;  
         while(choice != 9)  
@@ -78,6 +88,7 @@
         while(temp -> next != head)  
         {  
             temp = temp -> next;   
+		printf("a loop");
         }  
         temp -> next = ptr;  
         ptr -> prev = temp;  
@@ -115,6 +126,7 @@
               while(temp->next !=head)  
               {  
                   temp = temp->next;  
+printf("a loop");
               }  
               temp->next = ptr;  
               ptr ->prev=temp;  
@@ -144,6 +156,7 @@
             while(temp -> next != head)  
             {  
                 temp = temp -> next;  
+printf("a loop");
             }  
             temp -> next = head -> next;  
             head -> next -> prev = temp;  
