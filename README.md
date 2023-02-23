@@ -14,11 +14,11 @@ if you are programming C or Fortran, start from implementing Lisp 1.5 and go Lis
 
 #Progress:
 
-working LL
+->actually, i am here<-
 
-LL with no loops in push() and pop()
+working DoLT //not all functions work correctly
 
--> i am here <-
+DoLT with no loops in push() and pop() //it has a loop! what kind of stupid programmer wrote that?
 
 argc/argv API of zhekaMQ
 
