@@ -12,18 +12,18 @@ Any sufficiently complicated C or Fortran program contains an ad hoc, informally
 #Zheka's first rule
 if you are programming C or Fortran, start from implementing Lisp 1.5 and go Lisp instead of C or Fortran.
 
-#Progress
+# Progress
 
 ->actually, i am here<-
 
 1. Having a Double-Linked List data structure with Deque algorithm set
 
-2. argc/argv API of zhekaMQ
+2. argc/argv API of zhekaMQ for pushing and popping values in MQ
 
-3. json datatype and utilz
+3. Support of json datatype
 
-4. Multiple chains in one list, alpha and beta
+4. Multiple chains in one deque, 2 (alpha and beta) by default
 
-5. MQ
+5. Releasing the MQ software
 
 6. License, proper Readme, and anything else for having chance this will be useful to anybody else.
