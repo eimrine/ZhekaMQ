@@ -6,26 +6,24 @@ Develop a Linked List data structure named the LMSL (Linked Master/Slave List) b
 Master chain of Linked List must be totally reliable
 Slave channel of Linked List must be flood-proof.
 
-#Greenspoon's tenth rule:
+#Greenspoon's tenth rule
 Any sufficiently complicated C or Fortran program contains an ad hoc, informally-specified, bug-ridden, slow implementation of half of Common Lisp
 
-#Zheka's first rule:
+#Zheka's first rule
 if you are programming C or Fortran, start from implementing Lisp 1.5 and go Lisp instead of C or Fortran.
 
-#Progress:
+#Progress
 
 ->actually, i am here<-
 
-working DoLT //not all functions work correctly
+1. Having a Double-Linked List data structure with Deque algorithm set
 
-DoLT with no loops in push() and pop() //it has a loop! what kind of stupid programmer wrote that?
+2. argc/argv API of zhekaMQ
 
-argc/argv API of zhekaMQ
+3. json datatype and utilz
 
-json datatype and utilz
+4. Multiple chains in one list, alpha and beta
 
-2 chains in one list, alpha and beta
+5. MQ
 
-MQ
-
-License, proper Readme, and anything else for having chance this will be useful to anybody else.
+6. License, proper Readme, and anything else for having chance this will be useful to anybody else.
