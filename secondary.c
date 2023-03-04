@@ -29,4 +29,15 @@ void deque-push(data)
                 node-creating -> apart = data-creating;
                 
         }   
-        if (NULL == HEAD -> next && NULL = TAIL -> next) //second
+        if (NULL == HEAD -> next && NULL == TAIL -> prev) //second
+        {
+                prevHEAD = HEAD;
+                HEAD = node-creating;
+                node-creating -> next = prevHEAD;
+                node-creating -> prev = NULL;
+                node-creating -> dummy = data;
+                node-creating -> apart = data-creating;
+        }
+        
+        
+}
