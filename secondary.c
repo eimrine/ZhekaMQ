@@ -15,7 +15,7 @@ struct  node
 void deque-push(data)
 {
         struct data * data-creating;
-        data-creating = (struct data *) malloc(sizeof(struct data));
+        //data-creating = (struct data *) malloc(sizeof(struct data));
         struct node * node-creating;
         node-creating = (struct node *) malloc(sizeof(struct node));
         
@@ -26,7 +26,8 @@ void deque-push(data)
                 node-creating -> next = NULL;
                 node-creating -> prev = NULL;
                 node-creating -> dummy = data;
-                node-creating -> apart = data-creating;
+               // node-creating -> apart = data-creating;
+                printf("push-first, value=",node-creating->dummy);
                 
         }   
         if (NULL == HEAD -> next && NULL == TAIL -> prev) //second
@@ -36,8 +37,9 @@ void deque-push(data)
                 node-creating -> next = prevHEAD;
                 node-creating -> prev = NULL;
                 node-creating -> dummy = data;
-                node-creating -> apart = data-creating;
+               // node-creating -> apart = data-creating;
+                printf("push-other, value=",node-creating->dummy);
         }
-        
+
         
 }
