@@ -42,9 +42,16 @@ void deque-push(data)
                 HEAD = node-creating;
                 printf("push-other, value=",node-creating->dummy);
         }
-struct node * deque-pop()
+int deque-pop()
 {
         
+        struct node * node-destroying;   
+        int returning-value = node-destroying -> dummy
+        node-destroying = TAIL;
+  
+  
+  
+        TAIL  = node-destroying -> prev;
+        return node-destroyin
 }
         
-}
