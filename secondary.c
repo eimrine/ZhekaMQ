@@ -1,13 +1,32 @@
 struct          node *           HEAD;
 struct          node *           TAIL;
 
-struct          data 
+struct  data 
 {
                 int             dummy;
 }
-struct node {
+struct  node 
+{
         struct  node *           prev;
         struct  node *           next;
         struct  data *          apart;
         int                     dummy;
 }
+void deque-push(data)
+{
+        struct data * data-creating;
+        data-creating = (struct data *) malloc(sizeof(struct data));
+        struct node * node-creating;
+        node-creating = (struct node *) malloc(sizeof(struct node));
+        
+        
+        if (NULL == HEAD && NULL == TAIL) //apply first elt
+        {
+                TAIL = HEAD = node-creating;
+                node-creating -> next = NULL;
+                node-creating -> prev = NULL;
+                node-creating -> dummy = data;
+                node-creating -> apart = data-creating;
+                
+        }   
+        if (NULL == HEAD -> next && NULL = TAIL -> next) //second
