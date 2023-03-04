@@ -22,24 +22,29 @@ void deque-push(data)
         
         if (NULL == HEAD && NULL == TAIL) //apply first elt
         {
-                TAIL = HEAD = node-creating;
+                
                 node-creating -> next = NULL;
                 node-creating -> prev = NULL;
                 node-creating -> dummy = data;
                // node-creating -> apart = data-creating;
+                TAIL = HEAD = node-creating;
                 printf("push-first, value=",node-creating->dummy);
                 
         }   
-        if (NULL == HEAD -> next && NULL == TAIL -> prev) //second
+        if (NULL == HEAD -> next && NULL == TAIL -> prev) //non-first
         {
                 prevHEAD = HEAD;
-                HEAD = node-creating;
+                
                 node-creating -> next = prevHEAD;
                 node-creating -> prev = NULL;
                 node-creating -> dummy = data;
                // node-creating -> apart = data-creating;
+                HEAD = node-creating;
                 printf("push-other, value=",node-creating->dummy);
         }
-
+struct node * deque-pop()
+{
+        
+}
         
 }
