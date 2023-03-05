@@ -46,12 +46,11 @@ int deque-pop()
 {
         
         struct node * node-destroying;   
-        int returning-value = node-destroying -> dummy
+        
         node-destroying = TAIL;
-  
-  
-  
+        int returning-value = node-destroying -> dummy;
         TAIL  = node-destroying -> prev;
-        return node-destroyin
+        free(node-destroying);
+        return returning-value;
 }
         
