@@ -74,14 +74,18 @@ void dummy-deque-push(data)
 int deque-pop()
 {
         struct node * node-destroying;
-  
-        if (NULL == HEAD && NULL == TAIL)
+        if (!HEAD && !TAIL) //Do nothing
+        if (NULL != HEAD && NULL != TAIL && HEAD == TAIL)//1 item case
         {
-          
+                node-destroying = TAIL;
+                int returning-value = node-destroying -> dummy;
+                //TAIL = node-destroying -> prev;
+                TAIL = HEAD = NULL;
+                free(node-destroying)
+                return returning-value
         }
         else
         {
-        
                 node-destroying = TAIL;
                 int returning-value = node-destroying -> dummy;
                 TAIL  = node-destroying -> prev;
