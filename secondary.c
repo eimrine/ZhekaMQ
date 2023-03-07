@@ -71,7 +71,31 @@ void dummy-deque-push(data)
                 HEAD = node-creating;
                 printf("push-other, value=",node-creating->dummy);
         }
-int deque-pop()
+char * deque-pop()
+{
+        struct node * node-destroying;
+        if (!HEAD && !TAIL) //Do nothing
+        if (NULL != HEAD && NULL != TAIL && HEAD == TAIL)//1 item case
+        {
+                node-destroying = TAIL;
+                char * returning-value;
+                returning-value = node-destroying -> apart;
+                //TAIL = node-destroying -> prev;
+                TAIL = HEAD = NULL;
+                free(node-destroying);
+                return returning-value
+        }
+        else
+        {
+                node-destroying = TAIL;
+                int returning-value = node-destroying -> dummy;
+                TAIL  = node-destroying -> prev;
+                free(node-destroying);
+                return returning-value;
+        }
+
+}
+int dummy-deque-pop()
 {
         struct node * node-destroying;
         if (!HEAD && !TAIL) //Do nothing
@@ -92,5 +116,5 @@ int deque-pop()
                 free(node-destroying);
                 return returning-value;
         }
-}
-        
+
+}       
