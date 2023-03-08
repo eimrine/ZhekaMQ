@@ -1,120 +1,120 @@
 struct          node *           HEAD;
 struct          node *           TAIL;
 
-struct  data 
+struct  data
 {
                 char *           json;
-}
-struct  node 
+};
+struct  node
 {
         struct  node *           prev;
         struct  node *           next;
         struct  data *          apart;
         int                     dummy;
-}
-void deque-push(data)
+};
+void deque_push(data)
 {
-        struct data * data-creating;
+        struct data * data_creating;
         //dyn array of chars with trailling /0
-        struct node * node-creating;
-        node-creating = (struct node *) malloc(sizeof(struct node));
-        
-        
+        struct node * node_creating;
+        node_creating = (struct node *) malloc(sizeof(struct node));
+
+
         if (NULL == HEAD && NULL == TAIL) //apply first elt
         {
-                
-                node-creating -> next = NULL;
-                node-creating -> prev = NULL;
-                node-creating -> apart = data-creating; //array with json will be not a part of struct node
-                TAIL = HEAD = node-creating;
-                printf("push-first, value=",node-creating->dummy);
-                
-        }   
+
+                node_creating -> next = NULL;
+                node_creating -> prev = NULL;
+                node_creating -> apart = data_creating; //array with json will be not a part of struct node
+                TAIL = HEAD = node_creating;
+                printf("push-first, value=",node_creating->dummy);
+
+        }
         if (NULL == HEAD -> next && NULL == TAIL -> prev) //non-first
         {
                 prevHEAD = HEAD;
-                
-                node-creating -> next = prevHEAD;
-                node-creating -> prev = NULL;
-                node-creating -> dummy = data;
+
+                node_creating -> next = prevHEAD;
+                node_creating -> prev = NULL;
+                node_creating -> dummy = data;
                // node-creating -> apart = data-creating;
-                HEAD = node-creating;
-                printf("push-other, value=",node-creating->dummy);
+                HEAD = node_creating;
+                printf("push-other, value=",node_creating->dummy);
         }
-void dummy-deque-push(data)
+void dummy_deque_push(data)
 {
-        struct data * data-creating;
+        struct data * data_creating;
         //data-creating = (struct data *) malloc(sizeof(struct data));
-        struct node * node-creating;
-        node-creating = (struct node *) malloc(sizeof(struct node));
-        
-        
+        struct node * node_creating;
+        node_creating = (struct node *) malloc(sizeof(struct node));
+
+
         if (NULL == HEAD && NULL == TAIL) //apply first elt
         {
-                
-                node-creating -> next = NULL;
-                node-creating -> prev = NULL;
-                node-creating -> dummy = data;
+
+                node_creating -> next = NULL;
+                node_creating -> prev = NULL;
+                node_creating -> dummy = data;
                // node-creating -> apart = data-creating;
-                TAIL = HEAD = node-creating;
-                printf("push-first, value=",node-creating->dummy);
-                
-        }   
+                TAIL = HEAD = node_creating;
+                printf("push-first, value=",node_creating->dummy);
+
+        }
         if (NULL == HEAD -> next && NULL == TAIL -> prev) //non-first
         {
                 prevHEAD = HEAD;
-                
-                node-creating -> next = prevHEAD;
-                node-creating -> prev = NULL;
-                node-creating -> dummy = data;
+
+                node_creating -> next = prevHEAD;
+                node_creating -> prev = NULL;
+                node_creating -> dummy = data;
                // node-creating -> apart = data-creating;
-                HEAD = node-creating;
-                printf("push-other, value=",node-creating->dummy);
+                HEAD = node-creat_ng;
+                printf("push-other, value=",node_creating->dummy);
         }
-char * deque-pop()
+char * deque_pop()
 {
-        struct node * node-destroying;
+        struct node * node_destroying;
         if (!HEAD && !TAIL) //Do nothing
         if (NULL != HEAD && NULL != TAIL && HEAD == TAIL)//1 item case
         {
-                node-destroying = TAIL;
-                char * returning-value;
-                returning-value = node-destroying -> apart;
+                node_destroying = TAIL;
+                char * returning_value;
+                returning_value = node_destroying -> apart;
                 //TAIL = node-destroying -> prev;
                 TAIL = HEAD = NULL;
-                free(node-destroying);
-                return returning-value
+                free(node_destroying);
+                return returning_value
         }
         else
         {
-                node-destroying = TAIL;
-                int returning-value = node-destroying -> dummy;
-                TAIL  = node-destroying -> prev;
-                free(node-destroying);
-                return returning-value;
+                node_destroying = TAIL;
+                int returning_value = node_destroying -> dummy;
+                TAIL  = node_destroying -> prev;
+                free(node_destroying);
+                return returning_value;
         }
 
 }
-int dummy-deque-pop()
+int dummy_deque_pop()
 {
-        struct node * node-destroying;
+        struct node * node_destroying;
         if (!HEAD && !TAIL) //Do nothing
         if (NULL != HEAD && NULL != TAIL && HEAD == TAIL)//1 item case
         {
-                node-destroying = TAIL;
-                int returning-value = node-destroying -> dummy;
+                node_destroying = TAIL;
+                int returning_value = node_destroying -> dummy;
                 //TAIL = node-destroying -> prev;
                 TAIL = HEAD = NULL;
-                free(node-destroying)
-                return returning-value
+                free(node_destroying)
+                return returning_value
         }
         else
         {
-                node-destroying = TAIL;
-                int returning-value = node-destroying -> dummy;
-                TAIL  = node-destroying -> prev;
-                free(node-destroying);
-                return returning-value;
+                node_destroying = TAIL;
+                int returning_value = node_destroying -> dummy;
+                TAIL  = node_destroying -> prev;
+                free(node_destroying);
+                return returning_value;
         }
 
-}       
+}
