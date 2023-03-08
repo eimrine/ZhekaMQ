@@ -19,6 +19,7 @@ struct          node *           TAIL;
 
 void        deque_push();
 void  dummy_deque_push();
+void dummy_deque_push_zero();
 //char * deque pop();
 int deque_pop();
 void display();
@@ -50,7 +51,7 @@ void main()
                 dummy_deque_pop();
                 break;
                 case 3:
-
+                dummy_deque_push_zero();
                 break;
                 case 4:
                 //deletion_last();
@@ -166,6 +167,30 @@ void dummy_deque_push()//at start
         //printf("%d\n", iterator -> dummy);
         printf("\nZBS!~~~");
 }
+
+void dummy_deque_push_zero()//at start
+{
+        int userinput = 0;
+        struct node * node_creating;
+        node_creating = (struct node *) malloc(sizeof(struct node));
+        if (NULL != HEAD && NULL != TAIL) //non-first
+        {//this block is STRICTLY first
+                HEAD -> prev = node_creating;
+                node_creating -> prev = NULL;
+                node_creating -> next = /*prev*/HEAD;
+                node_creating -> dummy = userinput;
+                HEAD = node_creating;
+        }
+        if (NULL == HEAD && NULL == TAIL) //apply first elt
+        {//this block is STRICTLY second
+                node_creating -> next = NULL;
+                node_creating -> prev = NULL;
+                node_creating -> dummy = userinput;
+                TAIL = HEAD = node_creating;
+        }
+        printf("\nZBS!~~~");
+}
+
 /*
 char * deque_pop()
 {
