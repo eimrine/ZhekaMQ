@@ -31,8 +31,8 @@ void main()
             printf("\n*********Main Menu*********\n");
             printf("\nChoose one option from the following list ...\n");
             printf("\n===============================================\n");
-            printf("\n1.Insert in Beginning\n2.Insert at last\n3.Delete from Beginning\n4.Delete from last\n5.Search\n6.Show\n7.Exit\n");
-            printf("\nEnter your choice? 1267\n");
+            //printf("\n1.Insert in Beginning\n2.Insert at last\n3.Delete from Beginning\n4.Delete from last\n5.Search\n6.Show\n7.Exit\n");
+            printf("\nEnter your choice? 1-push 6-display 7-exit\n");
             scanf("\n%d",&choice);
             switch(choice)
             {
@@ -94,36 +94,37 @@ void deque_push(int data)
         }
 }
 */
-void dummy_deque_push(int data)
+void dummy_deque_push()
 {
-        struct data * data_creating;
-        //data-creating = (struct data *) malloc(sizeof(struct data));
+        int userinput;
         struct node * node_creating;
         node_creating = (struct node *) malloc(sizeof(struct node));
+        printf("\nUser, please enter some int value\t");
+        scanf("%d", &userinput);
 
+        if (NULL != HEAD && NULL != TAIL && NULL == HEAD -> next && NULL == TAIL -> prev) //non-first
+        {//this block is STRICTLY first
+                struct node * prevHEAD = HEAD;
+                node_creating -> prev = prevHEAD;
+                node_creating -> next = NULL;
+                node_creating -> dummy = userinput;
+                HEAD = node_creating;
+                printf("\nshow 1st value=\t");
+                printf("%d",node_creating->dummy);
+                printf("\tgo 1st next\n");
+        }
 
         if (NULL == HEAD && NULL == TAIL) //apply first elt
-        {
-
+        {//this block is STRICTLY second
                 node_creating -> next = NULL;
                 node_creating -> prev = NULL;
-                node_creating -> dummy = data;
-               // node-creating -> apart = data-creating;
+                node_creating -> dummy = userinput;
                 TAIL = HEAD = node_creating;
-                printf("push-first, value=",node_creating->dummy);
-
+                printf("\nshow 2nd value=\t");
+                printf("%d",node_creating->dummy);
+                printf("\tgo 2nd next\n");
         }
-        if (NULL == HEAD -> next && NULL == TAIL -> prev) //non-first
-        {
-                struct node * prevHEAD = HEAD;
 
-                node_creating -> next = prevHEAD;
-                node_creating -> prev = NULL;
-                node_creating -> dummy = data;
-               // node-creating -> apart = data-creating;
-                HEAD = node_creating;
-                printf("push-other, value=",node_creating->dummy);
-        }
 }
 /*
 char * deque_pop()
@@ -179,8 +180,16 @@ int dummy_deque_pop()
 */
 void display()
 {
+    printf("BEFORE ENTERING DISPLAY");
         struct node *iterator;
         iterator = HEAD;
+        printf("\nlets print head");
+        printf("%d\n", HEAD -> dummy);
+        printf("\nlets print TAIL");
+        printf("%d\n", TAIL -> dummy);
+        printf("Now iterator");
+        printf("%d\n", iterator -> dummy);
+        printf("\nZBS!");
         if(NULL == HEAD)
         {
             printf("\nnothing to print");
@@ -189,13 +198,15 @@ void display()
         {
             printf("\n printing values ... \n");
 
-            while(NULL != iterator -> next)
+            while(NULL != iterator && NULL != iterator -> next)
             {
 
                 printf("%d\n", iterator -> dummy);
                 iterator = iterator -> next;
             }
             printf("%d\n", iterator -> dummy);
+            printf("else");
         }
+        printf("after else (QUITTING DISPLAY)");
 
-    }
+}
