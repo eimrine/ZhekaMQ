@@ -94,7 +94,7 @@ void deque_push(int data)
         }
 }
 */
-void dummy_deque_push()
+void dummy_deque_push()//at start
 {
         int userinput;
         struct node * node_creating;
@@ -102,16 +102,38 @@ void dummy_deque_push()
         printf("\nUser, please enter some int value\t");
         scanf("%d", &userinput);
 
-        if (NULL != HEAD && NULL != TAIL && NULL == HEAD -> next && NULL == TAIL -> prev) //non-first
-        {//this block is STRICTLY first
+        if (NULL != HEAD && NULL != TAIL && NULL != HEAD -> next/* && NULL == TAIL -> prev*/) //non-second
+        {
+                printf("\n~~~non-first~~~");
                 struct node * prevHEAD = HEAD;
-                node_creating -> prev = prevHEAD;
-                node_creating -> next = NULL;
+
+
+                node_creating -> prev = NULL;
+                node_creating -> next = prevHEAD;
+
+
                 node_creating -> dummy = userinput;
                 HEAD = node_creating;
-                printf("\nshow 1st value=\t");
+                printf("\nshow 2nd value=\t");
                 printf("%d",node_creating->dummy);
-                printf("\tgo 1st next\n");
+                printf("\tgo 2nd next\n");
+        }
+
+        if (NULL != HEAD && NULL != TAIL && NULL == HEAD -> next/* && NULL == TAIL -> prev*/) //non-first
+        {//this block is STRICTLY first
+                printf("\n~~~non-first~~~");
+                struct node * prevHEAD = HEAD;
+
+
+                node_creating -> prev = NULL;
+                node_creating -> next = prevHEAD;
+
+
+                node_creating -> dummy = userinput;
+                HEAD = node_creating;
+                printf("\nshow 2nd value=\t");
+                printf("%d",node_creating->dummy);
+                printf("\tgo 2nd next\n");
         }
 
         if (NULL == HEAD && NULL == TAIL) //apply first elt
@@ -120,11 +142,17 @@ void dummy_deque_push()
                 node_creating -> prev = NULL;
                 node_creating -> dummy = userinput;
                 TAIL = HEAD = node_creating;
-                printf("\nshow 2nd value=\t");
+                printf("\nshow 1st value=\t");
                 printf("%d",node_creating->dummy);
-                printf("\tgo 2nd next\n");
+                printf("\tgo 1st next\n");
         }
-
+        printf("\n~~~lets print head");
+        printf("%d\n", HEAD -> dummy);
+        printf("\n~~~lets print TAIL");
+        printf("%d\n", TAIL -> dummy);
+        //printf("~~~Now iterator");
+        //printf("%d\n", iterator -> dummy);
+        printf("\nZBS!~~~");
 }
 /*
 char * deque_pop()
