@@ -210,7 +210,7 @@ int dummy_deque_pop()
         if (node_destroying) printf("%d\n", node_destroying -> prev -> dummy);
         printf("\nZBS!(pop)");
 
-        if (!HEAD || !TAIL) printf("\nlets print head(pop)"); //Do nothing
+        if (!HEAD && !TAIL) printf("\nlets print head(pop)"); //Do nothing
         if (NULL != HEAD && NULL != TAIL && HEAD == TAIL)//1 item case
         {
                 printf("\nHEad==TAIL!(pop)");
@@ -237,6 +237,7 @@ int dummy_deque_pop()
                 {
                     printf("\ndo");
                 TAIL  = node_destroying -> prev;
+                TAIL -> next = NULL;
                 printf("\ndodo");
                 returning_value = node_destroying -> dummy;
 printf("\ndododo");
@@ -244,6 +245,19 @@ printf("\ndododo");
                         printf("\ndodododo");
                         if (test) printf("%d", test -> dummy);
                         printf("\nthat was prev(pop)");
+
+
+                        //print node_dest's next and prev
+                        struct node * temp1;
+                        struct node * temp2;
+                        temp1 = node_destroying -> next;
+                        temp2 = node_destroying -> prev;
+                        printf ("\nstart next");
+                        if (temp1) printf("%d", temp1 -> dummy);
+                        printf ("\nend next");
+                        printf ("\nstart prev");
+                        if (temp2) printf("%d", temp2 -> dummy);
+                        printf ("ep\n");
                         free(node_destroying);
                 }
 
@@ -251,6 +265,11 @@ printf("\ndododo");
                 //return returning_value;
         }
         printf("\nwhat to return");
+
+
+
+
+
         return returning_value;
 }
 
