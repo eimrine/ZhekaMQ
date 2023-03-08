@@ -12,9 +12,9 @@ if you are programming C or Fortran, start from implementing Lisp, for example u
 
 # Progress
 
-->actually, i am here<-
-
 1. Having a Double-Linked List data structure with a Deque algorithm set
+
+->I'm here<-
 
 2. argc/argv API of zhekaMQ for pushing and popping values in MQ
 
