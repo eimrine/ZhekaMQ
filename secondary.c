@@ -33,6 +33,12 @@ void main()
             printf("\nChoose one option from the following list ...\n");
             printf("\n===============================================\n");
             //printf("\n1.Insert in Beginning\n2.Insert at last\n3.Delete from Beginning\n4.Delete from last\n5.Search\n6.Show\n7.Exit\n");
+
+        printf("\nlets print head");
+        if (HEAD) printf("%d\n", HEAD -> dummy);
+        printf("\nlets print TAIL");
+        if (TAIL) printf("%d\n", TAIL -> dummy);
+
             printf("\nEnter your choice? 1-push 2-pop 6-display-7 8-exit\n");
             scanf("\n%d",&choice);
             switch(choice)
@@ -192,58 +198,83 @@ int dummy_deque_pop()
         struct node * node_destroying;
         int returning_value;
 
-        printf("\nlets print head");
-        printf("%d\n", HEAD -> dummy);
-        printf("\nlets print TAIL");
-        printf("%d\n", TAIL -> dummy);
-        printf("Now returning value");
-        printf("%d\n", node_destroying -> dummy);
-        printf("Now prev!!!!!!!!!!!!!!!!!!!!!");
-        printf("%d\n", node_destroying -> prev);
-        printf("\nZBS!");
+        printf("\nlets print head(pop)");
+        if (HEAD) printf("%d\n", HEAD -> dummy);
+        printf("\nlets print TAIL(pop)");
+        if (TAIL) printf("%d\n", TAIL -> dummy);
+        printf("Now returning value(pop)");
+        if (node_destroying) printf("%d\n", node_destroying -> dummy);
+        printf("Now prev!!!!!!!!!!!!!!!!!!!!!(pop)");
+        if (node_destroying) printf("%d\n", node_destroying -> prev);
+        printf("Now prev->dummy!!!!!!!!!!!!!!(pop)");
+        if (node_destroying) printf("%d\n", node_destroying -> prev -> dummy);
+        printf("\nZBS!(pop)");
 
-        if (!HEAD && !TAIL) printf("\nlets print head"); //Do nothing
+        if (!HEAD || !TAIL) printf("\nlets print head(pop)"); //Do nothing
         if (NULL != HEAD && NULL != TAIL && HEAD == TAIL)//1 item case
         {
+                printf("\nHEad==TAIL!(pop)");
+                        printf("\nlets print head(pop)");
+        printf("%d\n", HEAD -> dummy);
+        printf("\nlets print TAIL(pop)");
+        printf("%d\n", TAIL -> dummy);
                 node_destroying = TAIL;
                 returning_value = node_destroying -> dummy;
                 //TAIL = node-destroying -> prev;
-                TAIL = HEAD = NULL;
-                free(node_destroying);
+                TAIL = NULL;
+                HEAD = NULL;
+                free(node_destroying);//GUARANTEED not null
                 //return returning_value;
         }
-        else
+        else//2 ITEM CASE
         {
+            printf("\nlets Correct this branch(pop)");
+                struct node * test;
                 node_destroying = TAIL;
-                returning_value = node_destroying -> dummy;
+
+
+                if (node_destroying)
+                {
+                    printf("\ndo");
                 TAIL  = node_destroying -> prev;
-                free(node_destroying);
+                printf("\ndodo");
+                returning_value = node_destroying -> dummy;
+printf("\ndododo");
+                        test = node_destroying -> prev;
+                        printf("\ndodododo");
+                        if (test) printf("%d", test -> dummy);
+                        printf("\nthat was prev(pop)");
+                        free(node_destroying);
+                }
+
+                printf("\nwhat to do");
                 //return returning_value;
         }
+        printf("\nwhat to return");
         return returning_value;
 }
 
 void display()
 {
-    printf("BEFORE ENTERING DISPLAY");
+    printf("BEFORE ENTERING DISPLAY(dis)");
         struct node *iterator;
         iterator = HEAD;
-        printf("\nlets print head");
-        printf("%d\n", HEAD -> dummy);
-        printf("\nlets print TAIL");
-        printf("%d\n", TAIL -> dummy);
-        printf("Now iterator");
-        printf("%d\n", iterator -> dummy);
-        printf("Now prevprevprevprev");
-        printf("%d\n", iterator -> prev);
-        printf("\nZBS!");
+        printf("\nlets print head(dis)");
+        if (HEAD) printf("%d\n", HEAD -> dummy);
+        printf("\nlets print TAIL(dis)");
+        if (TAIL) printf("%d\n", TAIL -> dummy);
+        printf("Now iterator(dis)");
+        if (iterator) printf("%d\n", iterator -> dummy);
+        printf("Now prevprevprevprev(dis)");
+        if (iterator) printf("%d\n", iterator -> prev);
+        printf("\nZBS!(dis)");
         if(NULL == HEAD)
         {
-            printf("\nnothing to print");
+            printf("\nnothing to print(dis)");
         }
         else
         {
-            printf("\n printing values ... \n");
+            printf("\n printing values ... (dis)\n");
 
             while(NULL != iterator && NULL != iterator -> next)
             {
@@ -254,28 +285,28 @@ void display()
             printf("%d\n", iterator -> dummy);
             printf("else");
         }
-        printf("after else (QUITTING DISPLAY)");
+        printf("after else (QUITTING DISPLAY)(dis)");
 
 }
 void yalpsid()
 {
-    printf("BEFORE ENTERING DISPLAY");
+    printf("BEFORE ENTERING DISPLAY(dis)");
         struct node *iterator;
         iterator = TAIL;
-        printf("\nlets print head");
-        printf("%d\n", HEAD -> dummy);
-        printf("\nlets print TAIL");
-        printf("%d\n", TAIL -> dummy);
-        printf("Now iterator");
-        printf("%d\n", iterator -> dummy);
-        printf("\nZBS!");
+        printf("\nlets print head(dis)");
+        if (HEAD) printf("%d\n", HEAD -> dummy);
+        printf("\nlets print TAIL(dis)");
+        if (TAIL) printf("%d\n", TAIL -> dummy);
+        printf("Now iterator(dis)");
+        if (iterator) printf("%d\n", iterator -> dummy);
+        printf("\nZBS!(dis)");
         if(NULL == TAIL)
         {
-            printf("\nnothing to print");
+            printf("\nnothing to print(dis)");
         }
         else
         {
-            printf("\n printing values ... \n");
+            printf("\n printing values ... (dis)\n");
 
             while(NULL != iterator && NULL != iterator -> prev)
             {
@@ -286,6 +317,6 @@ void yalpsid()
             printf("%d\n", iterator -> dummy);
             printf("else");
         }
-        printf("after else (QUITTING DISPLAY)");
+        printf("after else (QUITTING DISPLAY)(dis)");
 
 }
