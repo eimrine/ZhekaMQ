@@ -1,19 +1,17 @@
 static Janet cfun(int32_t argc, Janet *argv) {
-          janet_fixarity(argc, 1);
+        janet_fixarity(argc, 1);
 
-          const Janet *argv2 = janet_tuple_n(argv, argc);
+        const Janet *argv_copy = janet_tuple_n(argv, argc);
   
       
-          JanetKV *dolt_item = janet_struct_begin(6);
-      
-          janet_struct_put(dolt_item, janet_ckeywordv(""),
-                         janet_wrap_number((double) view->size));
-          janet_struct_put(dolt_item, janet_ckeywordv(""),
-                         janet_wrap_pointer();
-          janet_struct_put(dolt_item, janet_ckeywordv(""),
-                         janet_wrap_pointer();
-        
-
-          return janet_wrap_struct(janet_struct_end(dolt_item));
-
+        /* A mutable associative data type. Backed by a hashtable. */
+        struct JanetTable {
+            JanetGCObject gc;
+            int32_t dummy;
+            ??? prev;
+            ??? next;
+            JanetKV *data;
+            JanetTable *proto;
+        };
+        typedef struct JanetTable JanetTable;
 }
