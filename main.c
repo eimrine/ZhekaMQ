@@ -107,7 +107,9 @@ void deque_push(int data)
 */
 void dummy_deque_push()//at start
 {
-        int userinput;
+        int userinput_length;
+        struct data * text_container;
+        text_container = (struct data *) malloc(userinput_length);
         struct node * node_creating;
         node_creating = (struct node *) malloc(sizeof(struct node));
         printf("\nUser, please enter some int value\t");
