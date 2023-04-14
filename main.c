@@ -1,11 +1,9 @@
 #include        <stdio.h>
 #include        <stdlib.h>
-//#include        <boolean.h>
-
 
 struct  data
 {
-                char *           json;
+                char *        content;
 };
 struct  node
 {
@@ -19,60 +17,60 @@ struct          node *           TAIL;
 
 void        deque_push();
 void  dummy_deque_push();
-void dummy_deque_push_zero();
+void  dummy_deque_push_zero();
 //char * deque pop();
 int deque_pop();
 void display();
 void yalpsid();
 
 void main()
-    {
-    int choice =0;
-        while(choice != 9)
         {
-            printf("\n*********Main Menu*********\n");
-            printf("\nChoose one option from the following list ...\n");
-            printf("\n===============================================\n");
-            //printf("\n1.Insert in Beginning\n2.Insert at last\n3.Delete from Beginning\n4.Delete from last\n5.Search\n6.Show\n7.Exit\n");
+                int choice =0;
+                while(choice != 9)
+                {
+                        printf("\n*********Main Menu*********\n");
+                        printf("\nChoose one option from the following list ...\n");
+                        printf("\n===============================================\n");
+                        //printf("\n1.Insert in Beginning\n2.Insert at last\n3.Delete from Beginning\n4.Delete from last\n5.Search\n6.Show\n7.Exit\n");
 
-        printf("\nlets print head");
-        if (HEAD) printf("%d\n", HEAD -> dummy);
-        printf("\nlets print TAIL");
-        if (TAIL) printf("%d\n", TAIL -> dummy);
+                        printf("\nlets print head");
+                        if (HEAD) printf("%d\n", HEAD -> dummy);
+                        printf("\nlets print TAIL");
+                        if (TAIL) printf("%d\n", TAIL -> dummy);
 
-            printf("\nEnter your choice? 1-push 2-pop 6-display-7 8-exit\n");
-            scanf("\n%d",&choice);
-            switch(choice)
-            {
-                case 1:
-                dummy_deque_push();
-                break;
-                case 2:
-                dummy_deque_pop();
-                break;
-                case 3:
-                dummy_deque_push_zero();
-                break;
-                case 4:
-                //deletion_last();
-                break;
-                case 5:
-                //search();
-                break;
-                case 6:
-                display();
-                break;
-                case 7:
-                yalpsid();
-                break;
-                case 8:
-                exit(0);
-                break;
-                default:
-                printf("Please enter valid choice..");
-            }
+                        printf("\nEnter your choice? 1-push 2-pop 6-display-7 8-exit\n");
+                        scanf("\n%d",&choice);
+                        switch(choice)
+                        {
+                                case 1:
+                                dummy_deque_push();
+                                break;
+                                case 2:
+                                dummy_deque_pop();
+                                break;
+                                case 3:
+                                dummy_deque_push_zero();
+                                break;
+                                case 4:
+                                //deletion_last();
+                                break;
+                                case 5:
+                                //search();
+                                break;
+                                case 6:
+                                display();
+                                break;
+                                case 7:
+                                yalpsid();
+                                break;
+                                case 8:
+                                exit(0);
+                                break;
+                                default:
+                                printf("Please enter valid choice..");
+                        }
+                }
         }
-    }
 /*
 void deque_push(int data)
 {
@@ -262,12 +260,12 @@ int dummy_deque_pop()
 
                 if (node_destroying)
                 {
-                    printf("\ndo");
-                TAIL  = node_destroying -> prev;
-                TAIL -> next = NULL;
-                printf("\ndodo");
-                returning_value = node_destroying -> dummy;
-printf("\ndododo");
+                        printf("\ndo");
+                        TAIL  = node_destroying -> prev;
+                        TAIL -> next = NULL;
+                        printf("\ndodo");
+                        returning_value = node_destroying -> dummy;
+                        printf("\ndododo");
                         test = node_destroying -> prev;
                         printf("\ndodododo");
                         if (test) printf("%d", test -> dummy);
