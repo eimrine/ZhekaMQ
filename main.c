@@ -25,6 +25,7 @@ void yalpsid();
 
 void main()
         {
+                int userinput;
                 int choice =0;
                 while(choice != 9)
                 {
@@ -46,8 +47,8 @@ void main()
                                 dummy_deque_push();
                                 break;
                                 case 2:
-                                dummy_deque_pop();
-                                break;
+                                //dummy_deque_pop();
+                                //break;
                                 case 3:
                                 dummy_deque_push_zero();
                                 break;
@@ -106,6 +107,7 @@ void deque_push(int data)
 void dummy_deque_push()//at start
 {
         int userinput_length;
+        int userinput;
         struct data * text_container;
         text_container = (struct data *) malloc(userinput_length);
         struct node * node_creating;
