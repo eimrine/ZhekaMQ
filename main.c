@@ -19,7 +19,7 @@ void        deque_push();
 void  dummy_deque_push();
 void  dummy_deque_push_zero();
 //char * deque pop();
-int deque_pop();
+int dummy_deque_pop();
 void display();
 void yalpsid();
 
@@ -47,7 +47,7 @@ void main()
                                 dummy_deque_push();
                                 break;
                                 case 2:
-                                //dummy_deque_pop();
+                                dummy_deque_pop();
                                 //break;
                                 case 3:
                                 dummy_deque_push_zero();
