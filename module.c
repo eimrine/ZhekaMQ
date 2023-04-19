@@ -73,7 +73,7 @@ Janet janet_array_peek(JanetArray *array) {//TODO peek
 
 /* C Functions */
 
-JANET_CORE_FN(cfun_array_new,//first finction
+JANET_CORE_FN(cfun_array_new,//first function
               "(array/new capacity)",
               "Creates a new empty array with a pre-allocated capacity. The same as "
               "`(array)` but can be more efficient if the maximum size of an array is known.") {
@@ -83,7 +83,7 @@ JANET_CORE_FN(cfun_array_new,//first finction
     return janet_wrap_array(array);
 }
 
-JANET_CORE_FN(cfun_array_new_filled,
+JANET_CORE_FN(cfun_array_new_filled,//NO
               "(array/new-filled count &opt value)",
               "Creates a new array of `count` elements, all set to `value`, which defaults to nil. Returns the new array.") {
     janet_arity(argc, 1, 2);
@@ -97,7 +97,7 @@ JANET_CORE_FN(cfun_array_new_filled,
     return janet_wrap_array(array);
 }
 
-JANET_CORE_FN(cfun_array_fill,
+JANET_CORE_FN(cfun_array_fill,//NO
               "(array/fill arr &opt value)",
               "Replace all elements of an array with `value` (defaulting to nil) without changing the length of the array. "
               "Returns the modified array.") {
@@ -302,20 +302,20 @@ JANET_CORE_FN(cfun_array_clear,//WTF
 /* Load the array module */
 void janet_lib_array(JanetTable *env) {
     JanetRegExt array_cfuns[] = {
-        JANET_CORE_REG("array/new", cfun_array_new),
+        JANET_CORE_REG("array/new", cfun_array_new),//ok
         JANET_CORE_REG("array/new-filled", cfun_array_new_filled),
         JANET_CORE_REG("array/fill", cfun_array_fill),
-        JANET_CORE_REG("array/pop", cfun_array_pop),
-        JANET_CORE_REG("array/peek", cfun_array_peek),
-        JANET_CORE_REG("array/push", cfun_array_push),
+        JANET_CORE_REG("array/pop", cfun_array_pop),//yes
+        JANET_CORE_REG("array/peek", cfun_array_peek),//yes
+        JANET_CORE_REG("array/push", cfun_array_push),//yes
         JANET_CORE_REG("array/ensure", cfun_array_ensure),
         JANET_CORE_REG("array/slice", cfun_array_slice),
         JANET_CORE_REG("array/concat", cfun_array_concat),
         JANET_CORE_REG("array/insert", cfun_array_insert),
-        JANET_CORE_REG("array/remove", cfun_array_remove),
+        JANET_CORE_REG("array/remove", cfun_array_remove),//maybe
         JANET_CORE_REG("array/trim", cfun_array_trim),
         JANET_CORE_REG("array/clear", cfun_array_clear),
         JANET_REG_END
     };
-    janet_core_cfuns_ext(env, NULL, array_cfuns);
+    janet_core_cfuns_ext(env, NULL, array_cfuns);//what is env and what is cfuns_ext?
 }
