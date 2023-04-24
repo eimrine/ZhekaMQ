@@ -47,13 +47,52 @@ void janet_kv_deccount()
 
 /* Push a value to the top of the array */
 void janet_array_push(JanetArray *array, Janet x) {//TODO push
-    if (array->count == INT32_MAX) {
-        janet_panic("array overflow");
-    }
-    int32_t newcount = array->count + 1;
-    janet_array_ensure(array, newcount, 2);
-    array->data[array->count] = x;
-    array->count = newcount;
+	if (array->count == INT8_MAX) {//127 or 128 seems enough for MQ
+        	janet_panic("array overflow");
+    	}
+        int32_t userinput_length;
+        int32_t userinput;
+        struct data * text_container;
+        text_container = (struct data *) malloc(userinput_length);
+        struct node * node_creating;
+        node_creating = (struct node *) malloc(sizeof(struct node));
+        printf("\nUser, please enter some int value\t");
+        scanf("%d", &userinput);
+        if (NULL != HEAD && NULL != TAIL/* && NULL == HEAD -> next && NULL == TAIL -> prev*/) //non-first
+        {//this block is STRICTLY first
+                printf("\n~~~non-first~~~");
+                //struct node * prevHEAD = HEAD;
+                //prevHEAD -> prev = NULL;
+
+                HEAD -> prev = node_creating;
+                node_creating -> prev = NULL;
+                node_creating -> next = /*prev*/HEAD;
+
+
+                node_creating -> dummy = userinput;
+
+                HEAD = node_creating;
+                printf("\nshow 2nd value=\t");
+                printf("%d",node_creating->dummy);
+                printf("\tgo 2nd next\n");
+        }
+
+        if (NULL == HEAD && NULL == TAIL) //apply first elt
+        {//this block is STRICTLY second
+                node_creating -> next = NULL;
+                node_creating -> prev = NULL;
+                node_creating -> dummy = userinput;
+                TAIL = HEAD = node_creating;
+                printf("\nshow 1st value=\t");
+                printf("%d",node_creating->dummy);
+                printf("\tgo 1st next\n");
+        }
+        printf("\n~~~lets print head");
+        printf("%d\n", HEAD -> dummy);
+        printf("\n~~~lets print TAIL");
+        printf("%d\n", TAIL -> dummy);
+        printf("\nZBS!~~~");
+	janet_kv_inccount();   
 }
 
 /* Pop a value from the top of the array */
