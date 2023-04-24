@@ -8,6 +8,11 @@
 
 #include <string.h>
 
+//global values
+JanetKV DEQUE_HEAD = NULL;
+JanetKV DEQUE_TAIL = NULL;
+int32_t DEQUE_COUNT = 0;
+
 /* Creates a new struct */
 JanetKV *janet_kv(int32_t dummy_key) {
     JanetKV *kv = janet_gcalloc(JANET_MEMORY_STRUCT, sizeof(JanetKV));//is this a macros or what
@@ -24,23 +29,21 @@ JanetKV *janet_kv(int32_t dummy_key) {
     kv->data = data;
     return kv;
 }
-/*yes*/
-/* Creates a new array from n elements. */
-/* Ensure the array has enough capacity for elements */
 
-/* Set the count of an array. Extend with nil if needed. */
-void janet_array_setcount(JanetArray *array, int32_t count) {//TODO count
-    if (count < 0)
-        return;
-    if (count > array->count) {
-        int32_t i;
-        janet_array_ensure(array, count, 1);
-        for (i = array->count; i < count; i++) {
-            array->data[i] = janet_wrap_nil();
-        }
-    }
-    array->count = count;
+int32t janet_array_getcount(JanetArray *array, int32_t count) {//TODO count
+{
+	return DEQUE_COUNT;
 }
+void janet_kv_inccount()
+{
+	++DEQUE_COUNT;
+}
+void janet_kv_deccount()
+{
+	--DEQUE_COUNT;
+}
+
+/*yes*/
 
 /* Push a value to the top of the array */
 void janet_array_push(JanetArray *array, Janet x) {//TODO push
