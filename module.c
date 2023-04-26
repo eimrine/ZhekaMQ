@@ -115,42 +115,10 @@ Janet janet_array_peek(JanetArray *array) {//TODO peek
 
 /* C Functions */
 
-JANET_CORE_FN(cfun_array_new,//first function
-              "(array/new capacity)",
-              "Creates a new empty array with a pre-allocated capacity. The same as "
-              "`(array)` but can be more efficient if the maximum size of an array is known.") {
-    janet_fixarity(argc, 1);
-    int32_t cap = janet_getinteger(argv, 0);
-    JanetArray *array = janet_array(cap);//here
-    return janet_wrap_array(array);
-}
-
-JANET_CORE_FN(cfun_array_new_filled,//NO
-              "(array/new-filled count &opt value)",
-              "Creates a new array of `count` elements, all set to `value`, which defaults to nil. Returns the new array.") {
-    janet_arity(argc, 1, 2);
-    int32_t count = janet_getnat(argv, 0);
-    Janet x = (argc == 2) ? argv[1] : janet_wrap_nil();
-    JanetArray *array = janet_array(count);
-    for (int32_t i = 0; i < count; i++) {
-        array->data[i] = x;
-    }
-    array->count = count;
-    return janet_wrap_array(array);
-}
-
-JANET_CORE_FN(cfun_array_fill,//NO
-              "(array/fill arr &opt value)",
-              "Replace all elements of an array with `value` (defaulting to nil) without changing the length of the array. "
-              "Returns the modified array.") {
-    janet_arity(argc, 1, 2);
-    JanetArray *array = janet_getarray(argv, 0);
-    Janet x = (argc == 2) ? argv[1] : janet_wrap_nil();
-    for (int32_t i = 0; i < array->count; i++) {
-        array->data[i] = x;
-    }
-    return argv[0];
-}
+static const JanetReg cfuns[] = {
+	{"pshelnahui", cfun_array_pop, "(zhekamq/pshelnahui)\nDoes nothing yet."},
+	{NULL, NULL, NULL}
+};
 
 JANET_CORE_FN(cfun_array_pop, //TODO pop
               "(array/pop arr)",
@@ -181,101 +149,6 @@ JANET_CORE_FN(cfun_array_push, //TODO push
     janet_array_ensure(array, newcount, 2);
     if (argc > 1) memcpy(array->data + array->count, argv + 1, (size_t)(argc - 1) * sizeof(Janet));
     array->count = newcount;
-    return argv[0];
-}
-
-JANET_CORE_FN(cfun_array_ensure,//NO
-              "(array/ensure arr capacity growth)",
-              "Ensures that the memory backing the array is large enough for `capacity` "
-              "items at the given rate of growth. `capacity` and `growth` must be integers. "
-              "If the backing capacity is already enough, then this function does nothing. "
-              "Otherwise, the backing memory will be reallocated so that there is enough space.") {
-    janet_fixarity(argc, 3);
-    JanetArray *array = janet_getarray(argv, 0);
-    int32_t newcount = janet_getinteger(argv, 1);
-    int32_t growth = janet_getinteger(argv, 2);
-    if (newcount < 1) janet_panic("expected positive integer");
-    janet_array_ensure(array, newcount, growth);
-    return argv[0];
-}
-
-JANET_CORE_FN(cfun_array_slice,//NO
-              "(array/slice arrtup &opt start end)",
-              "Takes a slice of array or tuple from `start` to `end`. The range is half open, "
-              "[start, end). Indexes can also be negative, indicating indexing from the "
-              "end of the array. By default, `start` is 0 and `end` is the length of the array. "
-              "Note that index -1 is synonymous with index `(length arrtup)` to allow a full "
-              "negative slice range. Returns a new array.") {
-    JanetView view = janet_getindexed(argv, 0);
-    JanetRange range = janet_getslice(argc, argv);
-    JanetArray *array = janet_array(range.end - range.start);
-    if (array->data)
-        memcpy(array->data, view.items + range.start, sizeof(Janet) * (range.end - range.start));
-    array->count = range.end - range.start;
-    return janet_wrap_array(array);
-}
-
-JANET_CORE_FN(cfun_array_concat,//NO
-              "(array/concat arr & parts)",
-              "Concatenates a variable number of arrays (and tuples) into the first argument, "
-              "which must be an array. If any of the parts are arrays or tuples, their elements will "
-              "be inserted into the array. Otherwise, each part in `parts` will be appended to `arr` in order. "
-              "Return the modified array `arr`.") {
-    int32_t i;
-    janet_arity(argc, 1, -1);
-    JanetArray *array = janet_getarray(argv, 0);
-    for (i = 1; i < argc; i++) {
-        switch (janet_type(argv[i])) {
-            default:
-                janet_array_push(array, argv[i]);
-                break;
-            case JANET_ARRAY:
-            case JANET_TUPLE: {
-                int32_t j, len = 0;
-                const Janet *vals = NULL;
-                janet_indexed_view(argv[i], &vals, &len);
-                if (array->data == vals) {
-                    int32_t newcount = array->count + len;
-                    janet_array_ensure(array, newcount, 2);
-                    janet_indexed_view(argv[i], &vals, &len);
-                }
-                for (j = 0; j < len; j++)
-                    janet_array_push(array, vals[j]);
-            }
-            break;
-        }
-    }
-    return janet_wrap_array(array);
-}
-
-JANET_CORE_FN(cfun_array_insert,//WTF
-              "(array/insert arr at & xs)",
-              "Insert all `xs` into array `arr` at index `at`. `at` should be an integer between "
-              "0 and the length of the array. A negative value for `at` will index backwards from "
-              "the end of the array, such that inserting at -1 appends to the array. "
-              "Returns the array.") {
-    size_t chunksize, restsize;
-    janet_arity(argc, 2, -1);
-    JanetArray *array = janet_getarray(argv, 0);
-    int32_t at = janet_getinteger(argv, 1);
-    if (at < 0) {
-        at = array->count + at + 1;
-    }
-    if (at < 0 || at > array->count)
-        janet_panicf("insertion index %d out of range [0,%d]", at, array->count);
-    chunksize = (argc - 2) * sizeof(Janet);
-    restsize = (array->count - at) * sizeof(Janet);
-    if (INT32_MAX - (argc - 2) < array->count) {
-        janet_panic("array overflow");
-    }
-    janet_array_ensure(array, array->count + argc - 2, 2);
-    if (restsize) {
-        memmove(array->data + at + argc - 2,
-                array->data + at,
-                restsize);
-    }
-    safe_memcpy(array->data + at, argv + 2, chunksize);
-    array->count += (argc - 2);
     return argv[0];
 }
 
