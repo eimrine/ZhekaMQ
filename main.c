@@ -23,8 +23,24 @@ int dummy_deque_pop();
 void display();
 void yalpsid();
 
-void main()
+void main(int argc, char* argv[])
         {
+                int argc-mutable = argc;
+                char * argv-first;
+                char * argv-second;
+                if (argc < 0){
+                        printf("we are called from CLI!");
+                        if (argc > 2){
+                                printf("CRITICAL ERROR: zhekaMQ does not need such number of args");
+                                else{
+                                        while (--argc-mutable){ //i love C
+                                                argv-first = argv[argc-mutable];
+                                                argv-second = argv[argc-mutable];
+                                        }
+                                }
+                        }               
+                } //very laughable
+        
                 int userinput;
                 int choice =0;
                 while(choice != 9)
