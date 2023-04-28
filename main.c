@@ -24,70 +24,74 @@ void display();
 void yalpsid();
 
 void main(int argc, char* argv[])
+{
+        int argc-mutable = argc;
+        char * argv-first;
+        char * argv-second;
+        if (argc && argc > 0)
         {
-                int argc-mutable = argc;
-                char * argv-first;
-                char * argv-second;
-                if (argc < 0){
-                        printf("we are called from CLI!");
-                        if (argc > 2){
-                                printf("CRITICAL ERROR: zhekaMQ does not need such number of args");
-                                else{
-                                        while (--argc-mutable){ //i love C
-                                                argv-first = argv[argc-mutable];
-                                                argv-second = argv[argc-mutable];
-                                        }
-                                }
-                        }               
-                } //very laughable
-        
-                int userinput;
-                int choice =0;
-                while(choice != 9)
+                printf("we are called from CLI!");
+                if (argc > 2)
                 {
-                        printf("\n*********Main Menu*********\n");
-                        printf("\nChoose one option from the following list ...\n");
-                        printf("\n===============================================\n");
-                        //printf("\n1.Insert in Beginning\n2.Insert at last\n3.Delete from Beginning\n4.Delete from last\n5.Search\n6.Show\n7.Exit\n");
-
-                        printf("\nlets print head");
-                        if (HEAD) printf("%d\n", HEAD -> dummy);
-                        printf("\nlets print TAIL");
-                        if (TAIL) printf("%d\n", TAIL -> dummy);
-
-                        printf("\nEnter your choice? 1-push 2-pop 6-display-7 8-exit\n");
-                        scanf("\n%d",&choice);
-                        switch(choice)
+                        printf("CRITICAL ERROR: zhekaMQ does not need such number of args");
+                        else
                         {
-                                case 1:
-                                dummy_deque_push();
-                                break;
-                                case 2:
-                                dummy_deque_pop();
-                                //break;
-                                case 3:
-                                dummy_deque_push_zero();
-                                break;
-                                case 4:
-                                //deletion_last();
-                                break;
-                                case 5:
-                                //search();
-                                break;
-                                case 6:
-                                display();
-                                break;
-                                case 7:
-                                yalpsid();
-                                break;
-                                case 8:
-                                exit(0);
-                                break;
-                                default:
-                                printf("Please enter valid choice..");
+                                while (--argc-mutable)
+                                { //i love C
+                                        argv-first = argv[argc-mutable];
+                                        argv-second = argv[argc-mutable];
+                                }
                         }
+                }               
+        } //very laughable
+        
+        int userinput;
+        int choice =0;
+        while(choice != 9)
+        {
+                printf("\n*********Main Menu*********\n");
+                printf("\nChoose one option from the following list ...\n");
+                printf("\n===============================================\n");
+                //printf("\n1.Insert in Beginning\n2.Insert at last\n3.Delete from Beginning\n4.Delete from last\n5.Search\n6.Show\n7.Exit\n");
+
+                printf("\nlets print head");
+                if (HEAD) printf("%d\n", HEAD -> dummy);
+                printf("\nlets print TAIL");
+                if (TAIL) printf("%d\n", TAIL -> dummy);
+
+                printf("\nEnter your choice? 1-push 2-pop 6-display-7 8-exit\n");
+                scanf("\n%d",&choice);
+                switch(choice)
+                {
+                        case 1:
+                        dummy_deque_push();
+                        break;
+                        case 2:
+                        dummy_deque_pop();
+                        //break;
+                        case 3:
+                        dummy_deque_push_zero();
+                        break;
+                        case 4:
+                        //deletion_last();
+                        break;
+                        case 5:
+                        //search();
+                        break;
+                        case 6:
+                        display();
+                        break;
+                        case 7:
+                        yalpsid();
+                        break;
+                        case 8:
+                        exit(0);
+                        break;
+                        default:
+                        printf("Please enter valid choice..");
                 }
         }
+}
 /*
 void deque_push(int data)
 {
