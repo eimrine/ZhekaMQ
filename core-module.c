@@ -14,8 +14,8 @@ JanetKV DEQUE_TAIL = NULL;
 int32_t DEQUE_COUNT = 0;
 
 /* Creates a new struct */
-JanetKV *janet_kv(int32_t dummy_key) {
-    JanetKV *kv = janet_gcalloc(JANET_MEMORY_STRUCT, sizeof(JanetKV));//is this a macros or what
+JanetKV *janet_deque(int32_t dummy_key) {
+    JanetKV *deque = janet_gcalloc(JANET_MEMORY_STRUCT, sizeof(JanetKV));//is this a macros or what
     Janet *data = NULL;
     if (dummy_key > 0) {
         janet_vm.next_collection += dummy_key * sizeof(Janet);
@@ -24,21 +24,21 @@ JanetKV *janet_kv(int32_t dummy_key) {
             JANET_OUT_OF_MEMORY;
         }
     }
-    kv->count = 0;
-    kv->dummy_key = dummy_key;
-    kv->data = data;
-    return kv;
+    deque->count = 0;
+    deque->dummy_key = dummy_key;
+    deque->data = data;
+    return deque;
 }
 
 int32t janet_array_getcount(JanetArray *array, int32_t count) {//TODO count
 {
 	return DEQUE_COUNT;
 }
-void janet_kv_inccount()
+void janet_deque_inccount()
 {
 	++DEQUE_COUNT;
 }
-void janet_kv_deccount()
+void janet_deque_deccount()
 {
 	--DEQUE_COUNT;
 }
@@ -46,9 +46,9 @@ void janet_kv_deccount()
 /*yes*/
 
 /* Push a value to the top of the array */
-void janet_array_push(JanetArray *array, Janet x) {//TODO push
+void janet_deque_push(JanetKV *deque, Janet x) {//TODO push
 	if (array->count == INT8_MAX) {//127 or 128 seems enough for MQ
-        	janet_panic("array overflow");
+        	janet_panic("deque-counter overflow");
     	}
         int32_t userinput_length;
         int32_t userinput;
@@ -96,9 +96,9 @@ void janet_array_push(JanetArray *array, Janet x) {//TODO push
 }
 
 /* Pop a value from the top of the array */
-Janet janet_array_pop(JanetArray *array) {//TODO pop
-    if (array->count) {
-        return array->data[--array->count];
+Janet janet_deque_pop(JanetKV *deque) {//TODO pop
+    if (deque->count) {//currently im gonna to store this in global var
+        return deque->data[--deque->count];//currently im gonna to store this in global var
     } else {
         return janet_wrap_nil();
     }
@@ -106,60 +106,69 @@ Janet janet_array_pop(JanetArray *array) {//TODO pop
 
 /* Look at the last value in the array */
 Janet janet_array_peek(JanetArray *array) {//TODO peek
-    if (array->count) {
-        return array->data[array->count - 1];
+    if (array->count) {//currently im gonna to store this in global var
+        return array->data[array->count - 1];//currently im gona to store this in global var
     } else {
         return janet_wrap_nil();
     }
 }
 
 /* C Functions */
-
+/*
 static const JanetReg cfuns[] = {
-	{"pshelnahui", cfun_array_pop, "(zhekamq/pshelnahui)\nDoes nothing yet."},
+	{"psheln", cfun_array_pop, "(zhekamq/pshelnahui)\nDoes nothing yet."},
 	{NULL, NULL, NULL}
 };
+*/
 
-JANET_CORE_FN(cfun_array_pop, //TODO pop
-              "(array/pop arr)",
-              "Remove the last element of the array and return it. If the array is empty, will return nil. Modifies "
-              "the input array.") {
+JANET_CORE_FN(cfun_deque_pop, //TODO pop
+              "(deque/pop arr)",//WTF is arr?
+              "Remove the last element of the deque and return it. If the deque is empty, will return nil. Modifies "
+              "the list.") {
     janet_fixarity(argc, 1);
     JanetArray *array = janet_getarray(argv, 0);
     return janet_array_pop(array);
 }
 
-JANET_CORE_FN(cfun_array_peek, //TODO peek
-              "(array/peek arr)",
-              "Returns the last element of the array. Does not modify the array.") {
+JANET_CORE_FN(cfun_deque_peek, //TODO peek
+              "(deque/peek arr)",//WTF is arr?
+              "Returns the last element of the deque. Does not modify the array.") {
     janet_fixarity(argc, 1);
     JanetArray *array = janet_getarray(argv, 0);
     return janet_array_peek(array);
 }
 
-JANET_CORE_FN(cfun_array_push, //TODO push
-              "(array/push arr x)",
+JANET_CORE_FN(cfun_deque_push, //TODO push
+              "(deque/push arr x)",
               "Insert an element in the end of an array. Modifies the input array and returns it.") {
     janet_arity(argc, 1, -1);
-    JanetArray *array = janet_getarray(argv, 0);
-    if (INT32_MAX - argc + 1 <= array->count) {
+    JanetArray *deque = janet_getarray(argv, 0);//getkv ?
+    if (INT32_MAX - argc + 1 <= array->count) {//global
         janet_panic("array overflow");
     }
     int32_t newcount = array->count - 1 + argc;
     janet_array_ensure(array, newcount, 2);
     if (argc > 1) memcpy(array->data + array->count, argv + 1, (size_t)(argc - 1) * sizeof(Janet));
-    array->count = newcount;
+    array->count = newcount;//global
     return argv[0];
 }
-
-
 
 /* Load the array module */
 void janet_lib_array(JanetTable *env) {
     JanetRegExt array_cfuns[] = {
+        JANET_CORE_REG("array/new", cfun_array_new),//ok
+        JANET_CORE_REG("array/new-filled", cfun_array_new_filled),
+        JANET_CORE_REG("array/fill", cfun_array_fill),
         JANET_CORE_REG("array/pop", cfun_array_pop),//yes
         JANET_CORE_REG("array/peek", cfun_array_peek),//yes
         JANET_CORE_REG("array/push", cfun_array_push),//yes
+        JANET_CORE_REG("array/ensure", cfun_array_ensure),
+        JANET_CORE_REG("array/slice", cfun_array_slice),
+        JANET_CORE_REG("array/concat", cfun_array_concat),
+        JANET_CORE_REG("array/insert", cfun_array_insert),
+        JANET_CORE_REG("array/remove", cfun_array_remove),//maybe
+        JANET_CORE_REG("array/trim", cfun_array_trim),
+        JANET_CORE_REG("array/clear", cfun_array_clear),
         JANET_REG_END
     };
     janet_core_cfuns_ext(env, NULL, array_cfuns);//what is env and what is cfuns_ext?
