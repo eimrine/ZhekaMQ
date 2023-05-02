@@ -116,7 +116,18 @@ Janet janet_array_peek(JanetArray *array) {//TODO peek
 /* C Functions */
 
 static const JanetReg cfuns[] = {
-	{"pshelnahui", cfun_array_pop, "(zhekamq/pshelnahui)\nDoes nothing yet."},
+	{"khui", cfun_kv_push, "(zhekamq/khui)\nPushes nothing yet."},
+	{NULL, NULL, NULL}
+};
+	
+static const JanetReg cfuns[] = {
+	{"pizda", cfun_kv_pop, "(zhekamq/pizda)\nPops nothing yet."},
+	{NULL, NULL, NULL}
+};
+	
+
+static const JanetReg cfuns[] = {
+	{"yebat", cfun_kv_peek, "(zhekamq/yebat)\nReturns nothing yet."},
 	{NULL, NULL, NULL}
 };
 
@@ -152,85 +163,6 @@ JANET_CORE_FN(cfun_array_push, //TODO push
     return argv[0];
 }
 
-JANET_CORE_FN(cfun_array_remove,//WTF
-              "(array/remove arr at &opt n)",
-              "Remove up to `n` elements starting at index `at` in array `arr`. `at` can index from "
-              "the end of the array with a negative index, and `n` must be a non-negative integer. "
-              "By default, `n` is 1. "
-              "Returns the array.") {
-    janet_arity(argc, 2, 3);
-    JanetArray *array = janet_getarray(argv, 0);
-    int32_t at = janet_getinteger(argv, 1);
-    int32_t n = 1;
-    if (at < 0) {
-        at = array->count + at + 1;
-    }
-    if (at < 0 || at > array->count)
-        janet_panicf("removal index %d out of range [0,%d]", at, array->count);
-    if (argc == 3) {
-        n = janet_getinteger(argv, 2);
-        if (n < 0)
-            janet_panicf("expected non-negative integer for argument n, got %v", argv[2]);
-    }
-    if (at + n > array->count) {
-        n = array->count - at;
-    }
-    memmove(array->data + at,
-            array->data + at + n,
-            (array->count - at - n) * sizeof(Janet));
-    array->count -= n;
-    return argv[0];
-}
-
-JANET_CORE_FN(cfun_array_trim,//WTF
-              "(array/trim arr)",
-              "Set the backing capacity of an array to its current length. Returns the modified array.") {
-    janet_fixarity(argc, 1);
-    JanetArray *array = janet_getarray(argv, 0);
-    if (array->count) {
-        if (array->count < array->capacity) {
-            Janet *newData = janet_realloc(array->data, array->count * sizeof(Janet));
-            if (NULL == newData) {
-                JANET_OUT_OF_MEMORY;
-            }
-            array->data = newData;
-            array->capacity = array->count;
-        }
-    } else {
-        array->capacity = 0;
-        janet_free(array->data);
-        array->data = NULL;
-    }
-    return argv[0];
-}
-
-JANET_CORE_FN(cfun_array_clear,//WTF
-              "(array/clear arr)",
-              "Empties an array, setting it's count to 0 but does not free the backing capacity. "
-              "Returns the modified array.") {
-    janet_fixarity(argc, 1);
-    JanetArray *array = janet_getarray(argv, 0);
-    array->count = 0;
-    return argv[0];
-}
-
-/* Load the array module */
-void janet_lib_array(JanetTable *env) {
-    JanetRegExt array_cfuns[] = {
-        JANET_CORE_REG("array/new", cfun_array_new),//ok
-        JANET_CORE_REG("array/new-filled", cfun_array_new_filled),
-        JANET_CORE_REG("array/fill", cfun_array_fill),
-        JANET_CORE_REG("array/pop", cfun_array_pop),//yes
-        JANET_CORE_REG("array/peek", cfun_array_peek),//yes
-        JANET_CORE_REG("array/push", cfun_array_push),//yes
-        JANET_CORE_REG("array/ensure", cfun_array_ensure),
-        JANET_CORE_REG("array/slice", cfun_array_slice),
-        JANET_CORE_REG("array/concat", cfun_array_concat),
-        JANET_CORE_REG("array/insert", cfun_array_insert),
-        JANET_CORE_REG("array/remove", cfun_array_remove),//maybe
-        JANET_CORE_REG("array/trim", cfun_array_trim),
-        JANET_CORE_REG("array/clear", cfun_array_clear),
-        JANET_REG_END
-    };
-    janet_core_cfuns_ext(env, NULL, array_cfuns);//what is env and what is cfuns_ext?
+JANET_MODULE_ENTRY(JanetTable *env) {
+    janet_cfuns(env, "mymod", cfuns);
 }
