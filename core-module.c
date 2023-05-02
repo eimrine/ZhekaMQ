@@ -42,8 +42,35 @@ void janet_deque_deccount()
 {
 	--DEQUE_COUNT;
 }
+/* Creates a new array */
+JanetArray *janet_array(int32_t capacity) {
+    JanetArray *array = janet_gcalloc(JANET_MEMORY_ARRAY, sizeof(JanetArray));
+    Janet *data = NULL;
+    if (capacity > 0) {
+        janet_vm.next_collection += capacity * sizeof(Janet);
+        data = (Janet *) janet_malloc(sizeof(Janet) * (size_t) capacity);
+        if (NULL == data) {
+            JANET_OUT_OF_MEMORY;
+        }
+    }
+    array->count = 0;
+    array->capacity = capacity;
+    array->data = data;
+    return array;
+}
 
-/*yes*/
+/* Creates a new array from n elements. */
+JanetArray *janet_array_n(const Janet *elements, int32_t n) {
+    JanetArray *array = janet_gcalloc(JANET_MEMORY_ARRAY, sizeof(JanetArray));
+    array->capacity = n;
+    array->count = n;
+    array->data = janet_malloc(sizeof(Janet) * (size_t) n);
+    if (!array->data) {
+        JANET_OUT_OF_MEMORY;
+    }
+    safe_memcpy(array->data, elements, sizeof(Janet) * n);
+    return array;
+}
 
 /* Push a value to the top of the array */
 void janet_deque_push(JanetKV *deque, Janet x) {//TODO push
@@ -114,12 +141,6 @@ Janet janet_array_peek(JanetArray *array) {//TODO peek
 }
 
 /* C Functions */
-/*
-static const JanetReg cfuns[] = {
-	{"psheln", cfun_array_pop, "(zhekamq/pshelnahui)\nDoes nothing yet."},
-	{NULL, NULL, NULL}
-};
-*/
 
 JANET_CORE_FN(cfun_deque_pop, //TODO pop
               "(deque/pop arr)",//WTF is arr?
@@ -157,17 +178,9 @@ JANET_CORE_FN(cfun_deque_push, //TODO push
 void janet_lib_array(JanetTable *env) {
     JanetRegExt array_cfuns[] = {
         JANET_CORE_REG("array/new", cfun_array_new),//ok
-        JANET_CORE_REG("array/new-filled", cfun_array_new_filled),
-        JANET_CORE_REG("array/fill", cfun_array_fill),
         JANET_CORE_REG("array/pop", cfun_array_pop),//yes
         JANET_CORE_REG("array/peek", cfun_array_peek),//yes
         JANET_CORE_REG("array/push", cfun_array_push),//yes
-        JANET_CORE_REG("array/ensure", cfun_array_ensure),
-        JANET_CORE_REG("array/slice", cfun_array_slice),
-        JANET_CORE_REG("array/concat", cfun_array_concat),
-        JANET_CORE_REG("array/insert", cfun_array_insert),
-        JANET_CORE_REG("array/remove", cfun_array_remove),//maybe
-        JANET_CORE_REG("array/trim", cfun_array_trim),
         JANET_CORE_REG("array/clear", cfun_array_clear),
         JANET_REG_END
     };
